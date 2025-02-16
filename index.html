@@ -1,76 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            font-family: Arial, sans-serif;
-        }
-        .node-circle {
-            fill: #4ecdc4;
-            cursor: pointer;
-            transition: fill 0.3s ease;
-        }
-        .node-circle:hover {
-            fill: #45b7b0;
-        }
-        .center-circle {
-            fill: #ff6b6b;
-        }
-        .link {
-            stroke: #999;
-            stroke-width: 2px;
-        }
-        .node-label {
-            font-size: 14px;
-            fill: white;
-            text-anchor: middle;
-            pointer-events: none;
-        }
-        .node-content {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: absolute;
-            width: 300px;
-            display: none;
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        .back-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            padding: 10px 20px;
-            background: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            display: none;
-            z-index: 1000;
-        }
-    </style>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Patryk Gadziomski</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 </head>
 <body>
-    <button class="back-btn">← Back</button>
-    <div id="graph"></div>
-    <div id="content" class="node-content"></div>
+    <div class="main-container">
+        <div class="terminal info-container matte-display">
+            >> Patryk Gadziomski <br>
+            >> Information Scientist <br><br>
+            >> B.A. Information Science <br><br>
+            >> Data Science <br>
+            >> Knowledge Management
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+        </div>
+
+        <div class="graph-container">
+            <button class="back-btn">← Back</button>
+            <div id="graph"></div>
+            <div id="content" class="node-content"></div>
+        </div>
+    </div>
+
     <script>
         // Graph data
         const data = {
             nodes: [
                 { 
                     id: "center",
-                    label: "John Doe",
+                    label: "Patryk Gadziomski",
                     content: `
                         <h2>John Doe</h2>
                         <img src="/api/placeholder/150/150" style="border-radius: 50%; margin: 10px 0;">
-                        <p>Full-stack developer with 5 years of experience</p>
+                        <p>Student of Information Science</p>
                     `
                 },
                 { 
@@ -79,9 +46,10 @@
                     content: `
                         <h2>Projects</h2>
                         <ul>
-                            <li><strong>Project 1</strong>: Description</li>
-                            <li><strong>Project 2</strong>: Description</li>
-                            <li><strong>Project 3</strong>: Description</li>
+                            <li><strong>Visitor Prediction</strong></li>
+                            <li><strong>Bike Rental Prediction</strong></li>
+                            <li><strong>StudyOS</strong></li>
+                            <li><strong>Portfolio Website</strong></li>
                         </ul>
                     `
                 },
@@ -113,7 +81,7 @@
                     label: "Education",
                     content: `
                         <h2>Education</h2>
-                        <p>BS in Computer Science<br>University Name, 2020</p>
+                        <p>B.A. in Information Science<br>Media University, Stuttgart, 2025</p>
                     `
                 }
             ],
@@ -169,16 +137,24 @@
         // Create container for zoom
         const container = svg.append("g");
 
-        // Draw links
-        container.selectAll("line")
+        // Create curved link generator
+        function generateCurvedPath(source, target) {
+            const dx = target.x - source.x;
+            const dy = target.y - source.y;
+            const dr = Math.sqrt(dx * dx + dy * dy) * 1.2; // Adjust curvature by multiplying
+            return `M${source.x},${source.y}A${dr},${dr} 0 0,1 ${target.x},${target.y}`;
+        }
+
+        // Draw curved links
+        container.selectAll("path")
             .data(data.links)
             .enter()
-            .append("line")
+            .append("path")
             .attr("class", "link")
-            .attr("x1", d => data.nodes.find(n => n.id === d.source).x)
-            .attr("y1", d => data.nodes.find(n => n.id === d.source).y)
-            .attr("x2", d => data.nodes.find(n => n.id === d.target).x)
-            .attr("y2", d => data.nodes.find(n => n.id === d.target).y);
+            .attr("d", d => generateCurvedPath(
+                data.nodes.find(n => n.id === d.source),
+                data.nodes.find(n => n.id === d.target)
+            ));
 
         // Create nodes
         const nodes = container.selectAll("g")

@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(45deg, #191919, #545454);
+}
+.node-circle {
+    fill: #4ecdc4;
+    cursor: pointer;
+    transition: fill 0.3s ease;
+}
+.node-circle:hover {
+    fill: #45b7b0;
+}
+.center-circle {
+    fill: #ff6b6b;
+}
+.link {
+    fill: none;
+    stroke: #999;
+    stroke-width: 2px;
+}
+.node-label {
+    font-size: 14px;
+    fill: white;
+    text-anchor: middle;
+    pointer-events: none;
+}
+.node-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: absolute;
+    width: 300px;
+    display: none;
+    max-height: 400px;
+    overflow-y: auto;
+}
+.back-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+    z-index: 1000;
+}
+
+.main-container {
+    display: grid;
+    grid-template-areas: 'info graph';
+    grid-template-columns: 20% 80%;
+}
+
+.info-container {
+    grid-area: info;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 300px;
+    color: white;
+    margin: 15px;
+}
+
+.graph-container {
+    grid-area: graph;
+}
+
+.glass-card h2 {
+margin: 0 0 15px 0;
+font-weight: 500;
+}
+
+.glass-card p {
+margin: 0;
+line-height: 1.5;
+}
+
+.matte-display {
+    width: 350px;
+    height: 350px;
+    background: linear-gradient(145deg, #191919, #232323);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: monospace;
+    font-size: 14px;
+    text-align: left;
+    padding: 20px;
+    position: relative;
+}
+

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        .node-circle {
+            fill: #4ecdc4;
+            cursor: pointer;
+            transition: fill 0.3s ease;
+        }
+        .node-circle:hover {
+            fill: #45b7b0;
+        }
+        .center-circle {
+            fill: #ff6b6b;
+        }
+        .link {
+            stroke: #999;
+            stroke-width: 2px;
+        }
+        .node-label {
+            font-size: 14px;
+            fill: white;
+            text-anchor: middle;
+            pointer-events: none;
+        }
+        .node-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: absolute;
+            width: 300px;
+            display: none;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-btn">← Back</button>
+    <div id="graph"></div>
+    <div id="content" class="node-content"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script>
+        // Graph data
+        const data = {
+            nodes: [
+                { 
+                    id: "center",
+                    label: "John Doe",
+                    content: `
+                        <h2>John Doe</h2>
+                        <img src="/api/placeholder/150/150" style="border-radius: 50%; margin: 10px 0;">
+                        <p>Full-stack developer with 5 years of experience</p>
+                    `
+                },
+                { 
+                    id: "projects",
+                    label: "Projects",
+                    content: `
+                        <h2>Projects</h2>
+                        <ul>
+                            <li><strong>Project 1</strong>: Description</li>
+                            <li><strong>Project 2</strong>: Description</li>
+                            <li><strong>Project 3</strong>: Description</li>
+                        </ul>
+                    `
+                },
+                { 
+                    id: "skills",
+                    label: "Skills",
+                    content: `
+                        <h2>Skills</h2>
+                        <ul>
+                            <li>JavaScript, React, Node.js</li>
+                            <li>Python, Django</li>
+                            <li>SQL, MongoDB</li>
+                        </ul>
+                    `
+                },
+                { 
+                    id: "experience",
+                    label: "Experience",
+                    content: `
+                        <h2>Experience</h2>
+                        <ul>
+                            <li><strong>Company A</strong>: Senior Developer</li>
+                            <li><strong>Company B</strong>: Full Stack Developer</li>
+                        </ul>
+                    `
+                },
+                { 
+                    id: "education",
+                    label: "Education",
+                    content: `
+                        <h2>Education</h2>
+                        <p>BS in Computer Science<br>University Name, 2020</p>
+                    `
+                }
+            ],
+            links: []
+        };
+
+        // Add links from center to all other nodes
+        data.nodes.forEach(node => {
+            if (node.id !== "center") {
+                data.links.push({
+                    source: "center",
+                    target: node.id
+                });
+            }
+        });
+
+        // Setup
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const radius = Math.min(width, height) / 4;
+
+        // Create SVG
+        const svg = d3.select("#graph")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        // Calculate fixed positions
+        const nodeCount = data.nodes.length - 1; // Excluding center
+        const angleStep = (2 * Math.PI) / nodeCount;
+        
+        // Position nodes
+        data.nodes.forEach((node, i) => {
+            if (node.id === "center") {
+                node.x = width / 2;
+                node.y = height / 2;
+            } else {
+                const angle = angleStep * (i - 1) - Math.PI / 2; // Start from top
+                node.x = width / 2 + radius * Math.cos(angle);
+                node.y = height / 2 + radius * Math.sin(angle);
+            }
+        });
+
+        // Create zoom behavior
+        const zoom = d3.zoom()
+            .scaleExtent([0.5, 3])
+            .on("zoom", (event) => {
+                container.attr("transform", event.transform);
+            });
+
+        svg.call(zoom);
+
+        // Create container for zoom
+        const container = svg.append("g");
+
+        // Draw links
+        container.selectAll("line")
+            .data(data.links)
+            .enter()
+            .append("line")
+            .attr("class", "link")
+            .attr("x1", d => data.nodes.find(n => n.id === d.source).x)
+            .attr("y1", d => data.nodes.find(n => n.id === d.source).y)
+            .attr("x2", d => data.nodes.find(n => n.id === d.target).x)
+            .attr("y2", d => data.nodes.find(n => n.id === d.target).y);
+
+        // Create nodes
+        const nodes = container.selectAll("g")
+            .data(data.nodes)
+            .enter()
+            .append("g")
+            .attr("transform", d => `translate(${d.x},${d.y})`);
+
+        // Add circles to nodes
+        nodes.append("circle")
+            .attr("class", d => d.id === "center" ? "node-circle center-circle" : "node-circle")
+            .attr("r", d => d.id === "center" ? 60 : 40);
+
+        // Add labels to nodes
+        nodes.append("text")
+            .attr("class", "node-label")
+            .attr("dy", "0.35em")
+            .text(d => d.label);
+
+        // Handle node clicks
+        nodes.on("click", function(event, d) {
+            event.stopPropagation();
+            
+            // Show content
+            const content = document.getElementById("content");
+            content.innerHTML = d.content;
+            content.style.display = "block";
+            
+            // Position content near node
+            const rect = this.getBoundingClientRect();
+            content.style.left = rect.x + "px";
+            content.style.top = rect.y + "px";
+
+            // Show back button
+            document.querySelector(".back-btn").style.display = "block";
+
+            // Zoom to node
+            const scale = 1.5;
+            const transform = d3.zoomIdentity
+                .translate(width/2 - d.x * scale, height/2 - d.y * scale)
+                .scale(scale);
+            
+            svg.transition()
+                .duration(750)
+                .call(zoom.transform, transform);
+        });
+
+        // Reset view on background click
+        svg.on("click", (event) => {
+            if (event.target.tagName === "svg") {
+                resetView();
+            }
+        });
+
+        // Back button handler
+        document.querySelector(".back-btn").addEventListener("click", resetView);
+
+        function resetView() {
+            // Hide content and back button
+            document.getElementById("content").style.display = "none";
+            document.querySelector(".back-btn").style.display = "none";
+
+            // Reset zoom
+            svg.transition()
+                .duration(750)
+                .call(zoom.transform, d3.zoomIdentity);
+        }
+    </script>
+</body>
+</html>

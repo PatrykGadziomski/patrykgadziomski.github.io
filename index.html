@@ -1,7 +1,385 @@
 <!DOCTYPE html>
-<html>
-<body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="stylesheet.css" />
+    <script src="main.js"></script>
+    <title>Patryk Gadziomski | Information Scientist</title>
+  </head>
+
+  <body>
+
+    <nav>
+        <h1><a href="index.html">PATRYK GADZIOMSKI</a></h1>
+        <ul class="navigation">
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <button class="burger-menu" id="burger-menu">
+          <ion-icon class="bars" name="menu-outline"></ion-icon>
+        </button>
+    </nav>
+
+    <section class="hero" id="about">
+        <img
+          src="img/_DSC1823.jpg"
+          alt="patryk-gadziomski"
+          loading="lazy"
+          class="hero-img"
+        />
+        <div class="bio animate__animated animate__shakeX">
+          <h2 class="bio-title">About Me</h2>
+          <p class="bio-text">
+            I am a Data Scientist, Librarian and Manager, or 
+            Information Scientist for short.
+            So if you need someone for Data Analysis, Machine Learning, 
+            Data Extraction, Knowledge Management, or data related Project Management, 
+            you've come to the right place!
+          </p>
+        </div>
+    </section>
+
+    <section class="more-about">
+        <h2>More About Me</h2>
+        <p>
+            I am currently studying information science at the Stuttgart 
+            Media University, specialising in the data-related areas of my 
+            degree course. 
+            My primary interests include data extraction through web scraping, 
+            artificial intelligence, data analysis, and storage.
+        </p>
+        <p>
+            In addition to my studies, I also work as a tutor at the Stuttgart
+            Media University and as a research assistant in the library 
+            for business administration at the University of Stuttgart.
+        </p>
+        <p>
+          I also have an interest in non-fiction 
+          literature and enjoy drinking tea and coffee. Additionally, I practice 
+          fencing during my free time.
+        </p>
+    </section>
+
+    <section class="skills" id="skills">
+        <h2 class="skill-header">My Skills</h2>
+  
+        <div class="skills-wrapper">
+          <div class="first-set animate__animated animate__pulse">
+            <img
+              src="icons/html-5.png"
+              alt="html"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/css-3.png"
+              alt="css"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/js.png"
+              alt="java script"
+              loading="lazy"
+              class="icon icon-card"
+            />
+          </div>
+  
+          <div class="second-set animate__animated animate__pulse">
+            <img
+              src="icons/python.png"
+              alt="python"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/sql-server.png"
+              alt="sql"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/excel.png"
+              alt="excel"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/r.png"
+              alt="r"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/tableau-LOGO.png"
+              alt="tableau"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/knime.png"
+              alt="knime"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/pytorch-logo.png"
+              alt="pytorch"
+              loading="lazy"
+              class="icon icon-card"
+            />
+          </div>
+
+          <div class="third-set animate__animated animate__pulse">
+            <img
+              src="icons/vscode.png"
+              alt="html"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/git.png"
+              alt="git"
+              loading="lazy"
+              class="icon icon-card"
+            />
+        </div>
+        <div class="fourth-set animate__animated animate__pulse">
+          <img
+            src="icons/german.png"
+            alt="german"
+            loading="lazy"
+            class="icon icon-card"
+          />
+          <img
+            src="icons/poland.png"
+            alt="polish"
+            loading="lazy"
+            class="icon icon-card"
+          />
+          <img
+            src="icons/united-kingdom.png"
+            alt="english"
+            loading="lazy"
+            class="icon icon-card"
+          />
+      </div>
+    </section>
+
+    <section class="projects" id="projects">
+        <h2 class="projects-title">My Projects</h2>
+        <div class="projects-container">
+          <div class="project-container project-card">
+            <img
+              src="img/CovidDashboard.png"
+              alt="covid-dashboard"
+              loading="lazy"
+              class="project-pic"
+            />
+            <h3 class="project-title">COVID-19 Dashboard</h3>
+            <p class="project-details">
+              This project analyzes COVID death and infection data 
+              from 02/24/2020 to 09/06/2022 and presents it in a dashboard.
+            </p>
+            <a href="https://github.com/PatrykGadziomski/COVID-19-Data-Exploration-and-Visualization" target="_blank" class="project-link">Check it Out</a>
+          </div>
+          <div class="project-container project-card">
+            <img
+              src="img/Bike_sales_dashbaord.png"
+              alt="boke-sales-dashboard"
+              loading="lazy"
+              class="project-pic"
+            />
+            <h3 class="project-title">Bike Sales Dashboard</h3>
+            <p class="project-details">
+              In this project, I analyze bicycle sales.<br> The analysis 
+              focuses on cleaning data and generating a final visualization in Excel.
+            </p>
+            <a href="https://github.com/PatrykGadziomski/Data-Cleaning-and-Visualization-in-Excel" target="_blank" class="project-link">Check it Out</a>
+          </div>
+          <div class="project-container project-card">
+            <img
+              src="img/AirBnB-Seattle-2016-Dashboard.png"
+              alt="air-bnb-seattle-2016"
+              loading="lazy"
+              class="project-pic"
+            />
+            <h3 class="project-title">AirBnB Seattle 2016</h3>
+            <p class="project-details">
+              In this project, we analyze data from Airbnb listings in Seattle 
+              from 2016. The emphasis is on utilizing Tableau for data visualization.
+            </p>
+            <a href="https://github.com/PatrykGadziomski/AirBnB-Seattle-2016-Data-Visualization-in-Tableau" target="_blank" class="project-link">Check it Out</a>
+          </div>
+        </div>
+
+        <div class="projects-container">
+            <div class="project-container project-card">
+              <img
+                src="img/AMAI_Banner.png"
+                alt="amai"
+                loading="lazy"
+                class="project-pic"
+              />
+              <h3 class="project-title">Inquiry Assistant</h3>
+              <p class="project-details">
+                The project was the prototypical development of a dashboard 
+                for the evaluation of customer inquiries using NLP and other Technologies.
+              </p>
+              <a class="project-link">No Preview available</a>
+            </div>
+            <div class="project-container project-card"> <!--This window is to big!!!!-->
+                <img
+                  src="img/anidex.png"
+                  alt="amai"
+                  loading="lazy"
+                  class="project-pic"
+                />
+                <h3 class="project-title">Anidex</h3>
+                <p class="project-details">
+                    This project features a web application powered by a database. The application 
+                    enables users to search, create, modify, and delete entries stored in the database.
+                </p>
+                <a class="project-link">No Preview available</a>
+              </div>
+              <div class="project-container project-card">
+                <img
+                  src="img/gemuese-und-ein-italienisches-messer-auf-der-linken-seite-von-einem-schwarzen-tisch.jpg"
+                  alt=""
+                  loading="lazy"
+                  class="project-pic"
+                />
+                <h3 class="project-title">Culinary AI</h3>
+                <p class="project-details">
+                  The following project involves data collection with 
+                  web-scraping and fine-tuning of a AI model for recipe generation.
+                </p>
+                <a class="project-link">project in progress</a>
+              </div>
+          </div>
+
+          <div class="projects-container">
+            <div class="project-container project-card">
+              <img
+                src="img/TheAiGames_Bildmarke.png"
+                alt=""
+                loading="lazy"
+                class="project-pic"
+              />
+              <h3 class="project-title">The AI Games</h3>
+              <p class="project-details">
+                This project encompasses planning and executing the "AI Games" 
+                at the Stuttgart Media University, covering both the organizational and 
+                technical aspects.
+              </p>
+              <a class="project-link">project in progress</a>
+            </div>
+            <div class="project-container project-card">
+                <img
+                  src="img/fahrradverleih-auf-der-strasse.jpg"
+                  alt=""
+                  loading="lazy"
+                  class="project-pic"
+                />
+                <h3 class="project-title">Bike Rental Analysis and Prediction</h3>
+                <p class="project-details">
+                  This project encompasses all steps of Data Science, 
+                  ranging from data exploration and analysis to predicting bike rentals 
+                  via a linear regression model.
+                </p>
+                <a class="project-link">project in progress</a>
+              </div>
+              <div class="project-container project-card">
+                <img
+                  src="img/2112.q702.003.S.m005.c12.library illustration.jpg"
+                  alt=""
+                  loading="lazy"
+                  class="project-pic"
+                />
+                <h3 class="project-title">Visitor Forecast</h3>
+                <p class="project-details">
+                  This project consists of digitizing analog statistics, 
+                  creating a dataset, and training an AI model for visitor 
+                  forecasting for the library for business administration.
+                </p>
+                <a class="project-link">project in progress</a>
+              </div>
+          </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Get In Touch With Me</h2>
+        <div class="contact-form-container">
+          <div class="contact-form">
+            <form action="https://formspree.io/f/xknldnbe" method="POST">
+              <div class="form-control">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="sender-name"
+                  placeholder="Enter Your Name"
+                  class="input-field"
+                  required
+                />
+              </div>
+              <div class="form-control">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="sender-email"
+                  placeholder="Enter Your Email"
+                  class="input-field"
+                  required
+                />
+              </div>
+              <div class="form-control">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  cols="60"
+                  rows="10"
+                  placeholder="Enter Your Message"
+                  name="message"
+                  class="input-field"
+                  required
+                ></textarea>
+              </div>
+              <input
+                type="submit"
+                value="Submit"
+                id="submit-btn"
+                class="submit-btn"
+              />
+            </form>
+          </div>
+        </div>
+    </section>
+
+    <div class="socials">
+            <a href="https://www.linkedin.com/in/patryk-gadziomski-75215a239/" target="_blank">
+              <img
+                src="icons/linkedin.png"
+                alt="Linkedin"
+                loading="lazy"
+                class="socicon"/>
+              </a>
+            <a href="https://github.com/PatrykGadziomski" target="_blank">
+              <img src="icons/github.png" alt="Github" class="socicon"/>
+            </a>
+    </div>
+
+    <footer>
+        <p class="copy">&copy; Copyright 2023</p>
+        <p class="copy">
+          by Patryk Gadziomski
+        </p>
+    </footer>
+
+  </body>
 </html>

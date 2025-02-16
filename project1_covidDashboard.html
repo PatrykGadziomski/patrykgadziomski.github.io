@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="stylesheet.css" />
+    <script src="main.js"></script>
+    <title>Patryk Gadziomski | COVID-19 Dashboard</title>
+  </head>
+
+  <body>
+
+    <nav>
+      <h1><a href="index.html">PATRYK GADZIOMSKI</a></h1>
+        <ul class="navigation">
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <button class="burger-menu" id="burger-menu">
+          <ion-icon class="bars" name="menu-outline"></ion-icon>
+        </button>
+    </nav>
+
+    <section class="project_window" id="about">
+      <h1>COVID 19 Dashboard</h1>
+      <img
+          src="img/CovidDashboard.png"
+          alt="covid-19-dashboard"
+          loading="lazy"
+          class="hero-img"
+        />
+    </section>
+
+    <section class="project_info">
+      <h2>Project Details</h2>
+      <div class="project_intro">
+        <p>
+          This project analyzes the data on COVID-19 deaths and infections from 
+          February 24, 2020, until September 06, 2022.
+        </p>
+        <p>
+            This Project is structured in two parts:
+          <ol>
+            <li>SQL Data Exploration</li>
+            <li>Tableau Visualization</li>
+          </ol>
+        </p>
+        <p>
+          The primary objective of this project is to share a narrative about 
+          a devastating pandemic that claimed many lives. The purpose of this 
+          project is to visualize the data to enable all readers to comprehend 
+          and interpret the story. 
+          The story is based on data.
+        </p>
+        <p>
+            The dataset i'm using:
+            <a href="https://ourworldindata.org/covid-deaths" target="_blank">Coronavirus (COVID-19) Deaths</a><br>
+            The dataset version may change over time.
+        </p>
+      </div>
+
+      <div class="project_section">
+        <h3>1. SQL Data Exploration</h3>
+      <p>
+        So the first thing we're going to do is explore the data with SQL. 
+        We are going to query the data because we will need it later for our 
+        tableau visualization.<br><br>
+          
+        <b>Our Queries:</b>
+        <ul>
+          <li>Global data</li>
+          <li>Total deaths per continent</li>
+          <li>Percent population infected per country</li>
+          <li>Percent population infected</li>
+        </ul>
+      </p>
+      </div>
+      
+      <div class="project_section">
+        <h3>2. Tableau Data Visualization</h3>
+        <p>
+          For our visualizations we use Tableau Public.
+        </p>
+      </div>
+
+      <div class="project_section">
+        <h2>Live Demo</h2>
+        <p>
+          In case of problems, follow this <a href="https://public.tableau.com/views/CovidDashboard_16625675839290/Dashboard1?:language=de-DE&:display_count=n&:origin=viz_share_link" target="_blank">link</a> to the live demo.
+        </p>
+        <div class='tableauPlaceholder' id='viz1701714768591' style='position: relative'><noscript><a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;CovidDashboard_16625675839290&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='CovidDashboard_16625675839290&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Co&#47;CovidDashboard_16625675839290&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='de-DE' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1701714768591');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1127px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+      </div>
+      
+    </section>
+
+    <section class="tag_list">
+      <ol class="tag_elements">
+        <li>Data Exploration</li>
+        <li>Data Visualization</li>
+        <li>Data Analysis</li>
+        <li>SQL</li>
+        <li>Tableau</li>
+      </ol>
+    </section>
+
+    <div class="socials">
+            <a href="https://www.linkedin.com/in/patryk-gadziomski-75215a239/" target="_blank">
+              <img
+                src="icons/linkedin.png"
+                alt="Linkedin"
+                loading="lazy"
+                class="socicon"/>
+            </a>
+            <a href="https://github.com/PatrykGadziomski" target="_blank">
+              <img src="icons/github.png" alt="Github" class="socicon"/>
+            </a>
+    </div>
+
+    <footer>
+        <p class="copy">&copy; Copyright 2023</p>
+        <p class="copy">
+          by Patryk Gadziomski
+        </p>
+    </footer>
+
+  </body>
+</html>

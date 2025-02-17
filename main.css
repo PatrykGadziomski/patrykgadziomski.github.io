@@ -5,7 +5,7 @@ body {
     background: linear-gradient(45deg, #191919, #545454);
 }
 .node-circle {
-    fill: #4ecdc4;
+    fill: #DABFFF;
     cursor: pointer;
     transition: fill 0.3s ease;
 }
@@ -13,7 +13,7 @@ body {
     fill: #45b7b0;
 }
 .center-circle {
-    fill: #ff6b6b;
+    fill: #907AD6 ;
 }
 .link {
     fill: none;

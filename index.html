@@ -28,200 +28,248 @@
     </div>
 
     <script>
-        // Graph data
-        const data = {
-            nodes: [
-                { 
-                    id: "center",
-                    label: "Patryk Gadziomski",
-                    content: `
-                        <h2>John Doe</h2>
-                        <img src="/api/placeholder/150/150" style="border-radius: 50%; margin: 10px 0;">
-                        <p>Student of Information Science</p>
-                    `
-                },
-                { 
-                    id: "projects",
-                    label: "Projects",
-                    content: `
-                        <h2>Projects</h2>
-                        <ul>
-                            <li><strong>Visitor Prediction</strong></li>
-                            <li><strong>Bike Rental Prediction</strong></li>
-                            <li><strong>StudyOS</strong></li>
-                            <li><strong>Portfolio Website</strong></li>
-                        </ul>
-                    `
-                },
-                { 
-                    id: "skills",
-                    label: "Skills",
-                    content: `
-                        <h2>Skills</h2>
-                        <ul>
-                            <li>JavaScript, React, Node.js</li>
-                            <li>Python, Django</li>
-                            <li>SQL, MongoDB</li>
-                        </ul>
-                    `
-                },
-                { 
-                    id: "experience",
-                    label: "Experience",
-                    content: `
-                        <h2>Experience</h2>
-                        <ul>
-                            <li><strong>Company A</strong>: Senior Developer</li>
-                            <li><strong>Company B</strong>: Full Stack Developer</li>
-                        </ul>
-                    `
-                },
-                { 
-                    id: "education",
-                    label: "Education",
-                    content: `
-                        <h2>Education</h2>
-                        <p>B.A. in Information Science<br>Media University, Stuttgart, 2025</p>
-                    `
-                }
-            ],
-            links: []
-        };
-
-        // Add links from center to all other nodes
-        data.nodes.forEach(node => {
-            if (node.id !== "center") {
-                data.links.push({
-                    source: "center",
-                    target: node.id
-                });
-            }
-        });
-
-        // Setup
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        const radius = Math.min(width, height) / 4;
-
-        // Create SVG
-        const svg = d3.select("#graph")
-            .append("svg")
-            .attr("width", width)
-            .attr("height", height);
-
-        // Calculate fixed positions
-        const nodeCount = data.nodes.length - 1; // Excluding center
-        const angleStep = (2 * Math.PI) / nodeCount;
+        // Graph data structure remains the same
+const data = {
+    nodes: [
+        { id: "center", label: "Patryk Gadziomski", level: 0},
+        // Level 1 nodes
+        { id: "projects", label: "Projects", level: 1, parent: "center" },
+        { id: "skills", label: "Skills", level: 1, parent: "center" },
+        { id: "experience", label: "Experience", level: 1, parent: "center" },
+        { id: "education", label: "Education", level: 1, parent: "center" },
         
-        // Position nodes
-        data.nodes.forEach((node, i) => {
-            if (node.id === "center") {
-                node.x = width / 2;
-                node.y = height / 2;
-            } else {
-                const angle = angleStep * (i - 1) - Math.PI / 2; // Start from top
-                node.x = width / 2 + radius * Math.cos(angle);
-                node.y = height / 2 + radius * Math.sin(angle);
+        // Projects subnodes (level 2)
+        { id: "project1", label: "Visitor Prediction", level: 2, parent: "projects" },
+        { id: "project2", label: "Bike Rental Prediction", level: 2, parent: "projects" },
+        { id: "project3", label: "StudyOS", level: 2, parent: "projects" },
+        { id: "project4", label: "Portfolio Website", level: 2, parent: "projects" },
+        { id: "project5", label: "Data Analysis Dashboard", level: 2, parent: "projects" },
+        
+        // Education subnode (level 2)
+        { id: "education1", label: "Media University Stuttgart", level: 2, parent: "education" },
+        
+        // Experience subnodes (level 2)
+        { id: "exp1", label: "Senior Developer", level: 2, parent: "experience" },
+        { id: "exp2", label: "Full Stack Developer", level: 2, parent: "experience" },
+        { id: "exp3", label: "Junior Developer", level: 2, parent: "experience" },
+        
+        // Skills subnodes (level 2)
+        { id: "skill1", label: "Python", level: 2, parent: "skills" },
+        { id: "skill2", label: "R", level: 2, parent: "skills" },
+        { id: "skill3", label: "JavaScript", level: 2, parent: "skills" },
+        { id: "skill4", label: "HTML", level: 2, parent: "skills" },
+        { id: "skill5", label: "CSS", level: 2, parent: "skills" },
+        { id: "skill6", label: "TailwindCSS", level: 2, parent: "skills" },
+        { id: "skill7", label: "Markdown", level: 2, parent: "skills" },
+        { id: "skill8", label: "MySQL", level: 2, parent: "skills" },
+        { id: "skill9", label: "SQLite", level: 2, parent: "skills" },
+        { id: "skill10", label: "MongoDB", level: 2, parent: "skills" },
+        { id: "skill11", label: "VS Code", level: 2, parent: "skills" },
+        { id: "skill12", label: "Hugging Face", level: 2, parent: "skills" },
+        { id: "skill13", label: "Docker", level: 2, parent: "skills" },
+        { id: "skill14", label: "Git", level: 2, parent: "skills" },
+        { id: "skill15", label: "Godot", level: 2, parent: "skills" },
+        { id: "skill16", label: "Obsidian", level: 2, parent: "skills" },
+        { id: "skill17", label: "Notion", level: 2, parent: "skills" },
+        { id: "skill18", label: "Figma", level: 2, parent: "skills" },
+    ]
+};
+
+// Generate links
+data.links = data.nodes
+    .filter(node => node.parent)
+    .map(node => ({
+        source: node.parent,
+        target: node.id
+    }));
+
+// Setup dimensions
+const width = window.innerWidth;
+const height = window.innerHeight;
+
+// Adjusted radiuses for better spacing
+const centerRadius = 60;
+const level1Radius = Math.min(width, height) / 3.5;
+const level2Radius = Math.min(width, height) / 2.2; // Slightly increased for better spacing
+
+// Clear and create SVG
+d3.select("#graph").selectAll("*").remove();
+
+const svg = d3.select("#graph")
+    .append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+// Container for zoom
+const container = svg.append("g")
+    .attr("transform", `translate(${width/2},${height/2})`);
+
+// Improved node positioning
+data.nodes.forEach(node => {
+    if (node.level === 0) {
+        node.x = 0;
+        node.y = 0;
+    } else if (node.level === 1) {
+        const index = data.nodes.filter(n => n.level === 1).findIndex(n => n.id === node.id);
+        const total = data.nodes.filter(n => n.level === 1).length;
+        const angle = (index * 2 * Math.PI / total) - Math.PI/2;
+        node.x = level1Radius * Math.cos(angle);
+        node.y = level1Radius * Math.sin(angle);
+    } else if (node.level === 2) {
+        const parentNode = data.nodes.find(n => n.id === node.parent);
+        const siblings = data.nodes.filter(n => n.parent === node.parent);
+        const index = siblings.findIndex(n => n.id === node.id);
+        const total = siblings.length;
+        
+        // Calculate parent angle
+        const parentAngle = Math.atan2(parentNode.y, parentNode.x);
+        
+        // Improved spread angle calculation
+        const maxSpread = Math.PI / 2; // Maximum spread angle (90 degrees)
+        const minSpreadPerNode = Math.PI / 16; // Minimum angle between nodes
+        
+        // Calculate actual spread based on number of siblings
+        const spreadAngle = Math.min(maxSpread / total, minSpreadPerNode);
+        
+        // Calculate position with improved spacing
+        const angleOffset = (total - 1) * spreadAngle / 2;
+        const angle = parentAngle + (index * spreadAngle) - angleOffset;
+        
+        // Adjust radius based on number of siblings
+        const adjustedRadius = level2Radius * (1 + (total > 6 ? 0.2 : 0));
+        
+        // Position node with adjusted radius
+        node.x = adjustedRadius * Math.cos(angle);
+        node.y = adjustedRadius * Math.sin(angle);
+    }
+});
+
+// Link creation function remains the same
+function createLink(source, target) {
+    const dx = target.x - source.x;
+    const dy = target.y - source.y;
+    const dr = Math.sqrt(dx * dx + dy * dy);
+    
+    const sourceRadius = source.level === 0 ? centerRadius : source.level === 1 ? 40 : 25;
+    const targetRadius = target.level === 0 ? centerRadius : target.level === 1 ? 40 : 25;
+
+    const angle = Math.atan2(dy, dx);
+
+    const startX = source.x + (sourceRadius * Math.cos(angle));
+    const startY = source.y + (sourceRadius * Math.sin(angle));
+    const endX = target.x - (targetRadius * Math.cos(angle));
+    const endY = target.y - (targetRadius * Math.sin(angle));
+
+    return `M${startX},${startY}
+            Q${(startX + endX) / 2 + dy/8},${(startY + endY) / 2 - dx/8}
+            ${endX},${endY}`;
+}
+
+// Draw links
+container.selectAll("path")
+    .data(data.links)
+    .enter()
+    .append("path")
+    .attr("class", "link")
+    .attr("d", d => {
+        const source = data.nodes.find(n => n.id === d.source);
+        const target = data.nodes.find(n => n.id === d.target);
+        return createLink(source, target);
+    })
+    .style("fill", "none")
+    .style("stroke", "#999")
+    .style("stroke-width", 1.5)
+    .style("opacity", 0.6);
+
+// Create nodes
+const nodes = container.selectAll("g.node")
+    .data(data.nodes)
+    .enter()
+    .append("g")
+    .attr("class", "node")
+    .attr("transform", d => `translate(${d.x},${d.y})`)
+    .on("click", function(event, d) {
+        event.stopPropagation();
+        d3.select(".info-container").html(`>> ${d.label} <br> ${d.info}`);
+    });
+
+// Add circles to nodes
+nodes.append("circle")
+    .attr("r", d => d.level === 0 ? centerRadius : d.level === 1 ? 40 : 25)
+    .style("fill", d => d.level === 0 ? "#4a90e2" : d.level === 1 ? "#81b1e6" : "#b3d1f0")
+    .style("stroke", "#fff")
+    .style("stroke-width", 2)
+    .style("cursor", "pointer");
+
+// Text wrapping function
+function wrap(text, width) {
+    text.each(function() {
+        const text = d3.select(this);
+        const words = text.text().split(/\s+/).reverse();
+        let word;
+        let line = [];
+        let lineNumber = 0;
+        const lineHeight = 1.1;
+        const y = text.attr("y");
+        const dy = parseFloat(text.attr("dy"));
+        let tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+        
+        while (word = words.pop()) {
+            line.push(word);
+            tspan.text(line.join(" "));
+            if (tspan.node().getComputedTextLength() > width) {
+                line.pop();
+                tspan.text(line.join(" "));
+                line = [word];
+                tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
             }
-        });
-
-        // Create zoom behavior
-        const zoom = d3.zoom()
-            .scaleExtent([0.5, 3])
-            .on("zoom", (event) => {
-                container.attr("transform", event.transform);
-            });
-
-        svg.call(zoom);
-
-        // Create container for zoom
-        const container = svg.append("g");
-
-        // Create curved link generator
-        function generateCurvedPath(source, target) {
-            const dx = target.x - source.x;
-            const dy = target.y - source.y;
-            const dr = Math.sqrt(dx * dx + dy * dy) * 1.2; // Adjust curvature by multiplying
-            return `M${source.x},${source.y}A${dr},${dr} 0 0,1 ${target.x},${target.y}`;
         }
+    });
+}
 
-        // Draw curved links
-        container.selectAll("path")
-            .data(data.links)
-            .enter()
-            .append("path")
-            .attr("class", "link")
-            .attr("d", d => generateCurvedPath(
-                data.nodes.find(n => n.id === d.source),
-                data.nodes.find(n => n.id === d.target)
-            ));
+// Add labels to nodes
+nodes.append("text")
+    .attr("dy", "0.35em")
+    .attr("text-anchor", "middle")
+    .style("font-size", d => d.level === 0 ? "14px" : d.level === 1 ? "12px" : "10px")
+    .style("fill", "black")
+    .style("pointer-events", "none")
+    .text(d => d.label)
+    .call(wrap, 40);
 
-        // Create nodes
-        const nodes = container.selectAll("g")
-            .data(data.nodes)
-            .enter()
-            .append("g")
-            .attr("transform", d => `translate(${d.x},${d.y})`);
+// Node interactions
+nodes
+    .on("mouseover", function(event, d) {
+        d3.select(this).select("circle")
+            .transition()
+            .duration(200)
+            .style("fill", "#ff9900");
+    })
+    .on("mouseout", function(event, d) {
+        d3.select(this).select("circle")
+            .transition()
+            .duration(200)
+            .style("fill", d.level === 0 ? "#4a90e2" : d.level === 1 ? "#81b1e6" : "#b3d1f0");
+    })
+    .on("click", function(event, d) {
+        event.stopPropagation();
+        
+        const scale = 1.5;
+        const transform = d3.zoomIdentity
+            .translate(width/2 - d.x * scale, height/2 - d.y * scale)
+            .scale(scale);
+        
+        svg.transition()
+            .duration(750)
+            .call(zoom.transform, transform);
+    });
 
-        // Add circles to nodes
-        nodes.append("circle")
-            .attr("class", d => d.id === "center" ? "node-circle center-circle" : "node-circle")
-            .attr("r", d => d.id === "center" ? 60 : 40);
-
-        // Add labels to nodes
-        nodes.append("text")
-            .attr("class", "node-label")
-            .attr("dy", "0.35em")
-            .text(d => d.label);
-
-        // Handle node clicks
-        nodes.on("click", function(event, d) {
-            event.stopPropagation();
-            
-            // Show content
-            const content = document.getElementById("content");
-            content.innerHTML = d.content;
-            content.style.display = "block";
-            
-            // Position content near node
-            const rect = this.getBoundingClientRect();
-            content.style.left = rect.x + "px";
-            content.style.top = rect.y + "px";
-
-            // Show back button
-            document.querySelector(".back-btn").style.display = "block";
-
-            // Zoom to node
-            const scale = 1.5;
-            const transform = d3.zoomIdentity
-                .translate(width/2 - d.x * scale, height/2 - d.y * scale)
-                .scale(scale);
-            
-            svg.transition()
-                .duration(750)
-                .call(zoom.transform, transform);
-        });
-
-        // Reset view on background click
-        svg.on("click", (event) => {
-            if (event.target.tagName === "svg") {
-                resetView();
-            }
-        });
-
-        // Back button handler
-        document.querySelector(".back-btn").addEventListener("click", resetView);
-
-        function resetView() {
-            // Hide content and back button
-            document.getElementById("content").style.display = "none";
-            document.querySelector(".back-btn").style.display = "none";
-
-            // Reset zoom
-            svg.transition()
-                .duration(750)
-                .call(zoom.transform, d3.zoomIdentity);
-        }
+// Reset view on background click
+svg.on("click", () => {
+    svg.transition()
+        .duration(750)
+        .call(zoom.transform, d3.zoomIdentity);
+});
     </script>
 </body>
 </html>

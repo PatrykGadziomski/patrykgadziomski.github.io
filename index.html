@@ -6,270 +6,220 @@
     <title>Patryk Gadziomski</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 </head>
 <body>
     <div class="main-container">
-        <div class="terminal info-container matte-display">
+        <div class="info-container matte-display">
             >> Patryk Gadziomski <br>
             >> Information Scientist <br><br>
             >> B.A. Information Science <br><br>
             >> Data Science <br>
             >> Knowledge Management
-
         </div>
-
         <div class="graph-container">
-            <button class="back-btn">← Back</button>
             <div id="graph"></div>
-            <div id="content" class="node-content"></div>
         </div>
     </div>
 
     <script>
-        // Graph data structure remains the same
-const data = {
-    nodes: [
-        { id: "center", label: "Patryk Gadziomski", level: 0},
-        // Level 1 nodes
-        { id: "projects", label: "Projects", level: 1, parent: "center" },
-        { id: "skills", label: "Skills", level: 1, parent: "center" },
-        { id: "experience", label: "Experience", level: 1, parent: "center" },
-        { id: "education", label: "Education", level: 1, parent: "center" },
-        
-        // Projects subnodes (level 2)
-        { id: "project1", label: "Visitor Prediction", level: 2, parent: "projects" },
-        { id: "project2", label: "Bike Rental Prediction", level: 2, parent: "projects" },
-        { id: "project3", label: "StudyOS", level: 2, parent: "projects" },
-        { id: "project4", label: "Portfolio Website", level: 2, parent: "projects" },
-        { id: "project5", label: "Data Analysis Dashboard", level: 2, parent: "projects" },
-        
-        // Education subnode (level 2)
-        { id: "education1", label: "Media University Stuttgart", level: 2, parent: "education" },
-        
-        // Experience subnodes (level 2)
-        { id: "exp1", label: "Senior Developer", level: 2, parent: "experience" },
-        { id: "exp2", label: "Full Stack Developer", level: 2, parent: "experience" },
-        { id: "exp3", label: "Junior Developer", level: 2, parent: "experience" },
-        
-        // Skills subnodes (level 2)
-        { id: "skill1", label: "Python", level: 2, parent: "skills" },
-        { id: "skill2", label: "R", level: 2, parent: "skills" },
-        { id: "skill3", label: "JavaScript", level: 2, parent: "skills" },
-        { id: "skill4", label: "HTML", level: 2, parent: "skills" },
-        { id: "skill5", label: "CSS", level: 2, parent: "skills" },
-        { id: "skill6", label: "TailwindCSS", level: 2, parent: "skills" },
-        { id: "skill7", label: "Markdown", level: 2, parent: "skills" },
-        { id: "skill8", label: "MySQL", level: 2, parent: "skills" },
-        { id: "skill9", label: "SQLite", level: 2, parent: "skills" },
-        { id: "skill10", label: "MongoDB", level: 2, parent: "skills" },
-        { id: "skill11", label: "VS Code", level: 2, parent: "skills" },
-        { id: "skill12", label: "Hugging Face", level: 2, parent: "skills" },
-        { id: "skill13", label: "Docker", level: 2, parent: "skills" },
-        { id: "skill14", label: "Git", level: 2, parent: "skills" },
-        { id: "skill15", label: "Godot", level: 2, parent: "skills" },
-        { id: "skill16", label: "Obsidian", level: 2, parent: "skills" },
-        { id: "skill17", label: "Notion", level: 2, parent: "skills" },
-        { id: "skill18", label: "Figma", level: 2, parent: "skills" },
-    ]
-};
+        // Data structure
+        const data = {
+            name: "root",
+            value: 100,
+            children: [
+                {
+                    name: "Education",
+                    value: 10,
+                    children: [
+                        { name: "Media University, Stuttgart\nB.A. Information Science", value: 10 }
+                    ]
+                },
+                {
+                    name: "Experience",
+                    value: 20,
+                    children: [
+                        { name: "B1", value: 10 },
+                        { name: "B2", value: 10 }
+                    ]
+                },
+                {
+                    name: "Projects",
+                    value: 30,
+                    children: [
+                        { name: "C1", value: 15 },
+                        { name: "C2", value: 15 }
+                    ]
+                },
+                {
+                    name: "Skills",
+                    value: 40,
+                    children: [
+                        { name: "Data Science", value: 20, children: [ 
+                            { name: "Python", value: 1 },
+                            { name: "Matplotlib", value: 1 },
+                            { name: "Numpy", value: 1 },
+                            { name: "Pandas", value: 1 },
+                            { name: "Plotly", value: 1 },
+                            { name: "Scikit-Learn", value: 1 },
+                            { name: "PyTorch", value: 1 },
+                            { name: "R", value: 1 }
+                        ]},
+                        { name: "Social", value: 1, children: [
+                            { name: "Discord", value: 1 },
+                            { name: "LinkedIn", value: 1 }
+                        ]},
+                        { name: "Design", value: 1, children: [
+                            { name: "Figma", value: 1 },
+                            { name: "Canva", value: 1 }
+                        ]},
+                        { name: "Game Development", value: 1, children: [
+                            { name: "Godot", value: 1 }
+                        ]},
+                        { name: "Git", value: 1, children: [
+                            { name: "Git", value: 1 },
+                            { name: "GitHub", value: 1 },
+                            { name: "GitLab", value: 1 },
+                            { name: "GitHub Pages", value: 1 }
+                        ]},
+                        { name: "Web Development", value: 1, children: [
+                            { name: "JavaScript", value: 1 },
+                            { name: "HTML", value: 1 },
+                            { name: "CSS", value: 1 },
+                            { name: "TailwindCSS", value: 1 }
+                        ]},
+                        { name: "Databases", value: 1, children: [
+                            { name: "MySQL", value: 1 },
+                            { name: "SQLite", value: 1 },
+                            { name: "MongoDB", value: 1 }
+                        ]},
+                        { name: "Software I like", value: 1, children: [
+                            { name: "Obsidian", value: 1 },
+                            { name: "Notion", value: 1 },
+                            { name: "VS Code", value: 1 },
+                            { name: "Anaconda", value: 1 }
+                        ]},
+                        { name: "Others", value: 1, children: [
+                            { name: "Markdown", value: 1 },
+                            { name: "Latex", value: 1 },
+                            { name: "Hugging Face", value: 1 },
+                            { name: "Docker", value: 1 }
+                        ]},
+                    ]
+                },
+            ]
+        };
 
-// Generate links
-data.links = data.nodes
-    .filter(node => node.parent)
-    .map(node => ({
-        source: node.parent,
-        target: node.id
-    }));
+        // Set dimensions
+        const width = 700;
+        const height = width;
 
-// Setup dimensions
-const width = window.innerWidth;
-const height = window.innerHeight;
+        // Create the color scale
+        const color = d3.scaleLinear()
+            .domain([0, 5])
+            .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
+            .interpolate(d3.interpolateHcl);
 
-// Adjusted radiuses for better spacing
-const centerRadius = 60;
-const level1Radius = Math.min(width, height) / 3.5;
-const level2Radius = Math.min(width, height) / 2.2; // Slightly increased for better spacing
+        // Create the pack layout
+        const pack = data => d3.pack()
+            .size([width, height])
+            .padding(5)
+            (d3.hierarchy(data)
+                .sum(d => d.value)
+                .sort((a, b) => b.value - a.value));
 
-// Clear and create SVG
-d3.select("#graph").selectAll("*").remove();
+        const root = pack(data);
+        let focus = root;
+        let view;
 
-const svg = d3.select("#graph")
-    .append("svg")
-    .attr("width", width)
-    .attr("height", height);
+        // Create the SVG container - Changed selector to #graph
+        const svg = d3.select("#graph")
+            .append("svg")
+            .attr("viewBox", `-${width / 1.25} -${height / 2.25} ${width} ${height}`)
+            .style("display", "block")
+            .style("margin", "0")
+            .style("width", "100%")
+            .style("height", "100%")
+            .style("cursor", "pointer")
+            .on("click", (event) => zoom(event, root));
 
-// Container for zoom
-const container = svg.append("g")
-    .attr("transform", `translate(${width/2},${height/2})`);
+        // In the node creation, remove the stroke:
+        const node = svg.append("g")
+            .selectAll("circle")
+            .data(root.descendants().slice(1))
+            .join("circle")
+            .attr("fill", d => d.children ? color(d.depth) : "white")
+            .attr("pointer-events", d => !d.children ? "none" : null)
+            .attr("stroke", "none") // Remove borders
+            .on("mouseover", function() { 
+                d3.select(this)
+                    .attr("fill", "#999")
+                    .attr("stroke", "none"); // Ensure no stroke on hover
+            })
+            .on("mouseout", function(event, d) { 
+                d3.select(this)
+                    .attr("fill", d.children ? color(d.depth) : "white")
+                    .attr("stroke", "none"); // Ensure no stroke on mouseout
+            })
+            .on("click", (event, d) => {
+                if (focus !== d) {
+                    zoom(event, d);
+                    event.stopPropagation();
+                }
+            });
 
-// Improved node positioning
-data.nodes.forEach(node => {
-    if (node.level === 0) {
-        node.x = 0;
-        node.y = 0;
-    } else if (node.level === 1) {
-        const index = data.nodes.filter(n => n.level === 1).findIndex(n => n.id === node.id);
-        const total = data.nodes.filter(n => n.level === 1).length;
-        const angle = (index * 2 * Math.PI / total) - Math.PI/2;
-        node.x = level1Radius * Math.cos(angle);
-        node.y = level1Radius * Math.sin(angle);
-    } else if (node.level === 2) {
-        const parentNode = data.nodes.find(n => n.id === node.parent);
-        const siblings = data.nodes.filter(n => n.parent === node.parent);
-        const index = siblings.findIndex(n => n.id === node.id);
-        const total = siblings.length;
-        
-        // Calculate parent angle
-        const parentAngle = Math.atan2(parentNode.y, parentNode.x);
-        
-        // Improved spread angle calculation
-        const maxSpread = Math.PI / 2; // Maximum spread angle (90 degrees)
-        const minSpreadPerNode = Math.PI / 16; // Minimum angle between nodes
-        
-        // Calculate actual spread based on number of siblings
-        const spreadAngle = Math.min(maxSpread / total, minSpreadPerNode);
-        
-        // Calculate position with improved spacing
-        const angleOffset = (total - 1) * spreadAngle / 2;
-        const angle = parentAngle + (index * spreadAngle) - angleOffset;
-        
-        // Adjust radius based on number of siblings
-        const adjustedRadius = level2Radius * (1 + (total > 6 ? 0.2 : 0));
-        
-        // Position node with adjusted radius
-        node.x = adjustedRadius * Math.cos(angle);
-        node.y = adjustedRadius * Math.sin(angle);
-    }
-});
+        const label = svg.append("g")
+            .style("font", "10px sans-serif")
+            .attr("pointer-events", "none")
+            .attr("text-anchor", "middle")
+            .selectAll("text")
+            .data(root.descendants())
+            .join("text")
+            .style("fill-opacity", d => d.parent === root ? 1 : 0)
+            .style("display", d => d.parent === root ? "inline" : "none")
+            .each(function(d) {
+                const lines = d.data.name.split("\n");
+                d3.select(this)
+                    .selectAll("tspan")
+                    .data(lines)
+                    .join("tspan")
+                    .attr("x", 0)
+                    .attr("dy", (d, i) => i === 0 ? 0 : "1.1em")
+                    .text(d => d);
+            });
 
-// Link creation function remains the same
-function createLink(source, target) {
-    const dx = target.x - source.x;
-    const dy = target.y - source.y;
-    const dr = Math.sqrt(dx * dx + dy * dy);
-    
-    const sourceRadius = source.level === 0 ? centerRadius : source.level === 1 ? 40 : 25;
-    const targetRadius = target.level === 0 ? centerRadius : target.level === 1 ? 40 : 25;
+        zoomTo([root.x, root.y, root.r * 2]);
 
-    const angle = Math.atan2(dy, dx);
-
-    const startX = source.x + (sourceRadius * Math.cos(angle));
-    const startY = source.y + (sourceRadius * Math.sin(angle));
-    const endX = target.x - (targetRadius * Math.cos(angle));
-    const endY = target.y - (targetRadius * Math.sin(angle));
-
-    return `M${startX},${startY}
-            Q${(startX + endX) / 2 + dy/8},${(startY + endY) / 2 - dx/8}
-            ${endX},${endY}`;
-}
-
-// Draw links
-container.selectAll("path")
-    .data(data.links)
-    .enter()
-    .append("path")
-    .attr("class", "link")
-    .attr("d", d => {
-        const source = data.nodes.find(n => n.id === d.source);
-        const target = data.nodes.find(n => n.id === d.target);
-        return createLink(source, target);
-    })
-    .style("fill", "none")
-    .style("stroke", "#999")
-    .style("stroke-width", 1.5)
-    .style("opacity", 0.6);
-
-// Create nodes
-const nodes = container.selectAll("g.node")
-    .data(data.nodes)
-    .enter()
-    .append("g")
-    .attr("class", "node")
-    .attr("transform", d => `translate(${d.x},${d.y})`)
-    .on("click", function(event, d) {
-        event.stopPropagation();
-        d3.select(".info-container").html(`>> ${d.label} <br> ${d.info}`);
-    });
-
-// Add circles to nodes
-nodes.append("circle")
-    .attr("r", d => d.level === 0 ? centerRadius : d.level === 1 ? 40 : 25)
-    .style("fill", d => d.level === 0 ? "#4a90e2" : d.level === 1 ? "#81b1e6" : "#b3d1f0")
-    .style("stroke", "#fff")
-    .style("stroke-width", 2)
-    .style("cursor", "pointer");
-
-// Text wrapping function
-function wrap(text, width) {
-    text.each(function() {
-        const text = d3.select(this);
-        const words = text.text().split(/\s+/).reverse();
-        let word;
-        let line = [];
-        let lineNumber = 0;
-        const lineHeight = 1.1;
-        const y = text.attr("y");
-        const dy = parseFloat(text.attr("dy"));
-        let tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
-        
-        while (word = words.pop()) {
-            line.push(word);
-            tspan.text(line.join(" "));
-            if (tspan.node().getComputedTextLength() > width) {
-                line.pop();
-                tspan.text(line.join(" "));
-                line = [word];
-                tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
-            }
+        function zoomTo(v) {
+            const k = width / v[2];
+            view = v;
+            
+            // Update the position of the text elements (not tspans)
+            label.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
+            
+            // Update the node positions
+            node.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
+            node.attr("r", d => d.r * k);
         }
-    });
-}
 
-// Add labels to nodes
-nodes.append("text")
-    .attr("dy", "0.35em")
-    .attr("text-anchor", "middle")
-    .style("font-size", d => d.level === 0 ? "14px" : d.level === 1 ? "12px" : "10px")
-    .style("fill", "black")
-    .style("pointer-events", "none")
-    .text(d => d.label)
-    .call(wrap, 40);
+        function zoom(event, d) {
+            const focus0 = focus;
+            focus = d;
 
-// Node interactions
-nodes
-    .on("mouseover", function(event, d) {
-        d3.select(this).select("circle")
-            .transition()
-            .duration(200)
-            .style("fill", "#ff9900");
-    })
-    .on("mouseout", function(event, d) {
-        d3.select(this).select("circle")
-            .transition()
-            .duration(200)
-            .style("fill", d.level === 0 ? "#4a90e2" : d.level === 1 ? "#81b1e6" : "#b3d1f0");
-    })
-    .on("click", function(event, d) {
-        event.stopPropagation();
-        
-        const scale = 1.5;
-        const transform = d3.zoomIdentity
-            .translate(width/2 - d.x * scale, height/2 - d.y * scale)
-            .scale(scale);
-        
-        svg.transition()
-            .duration(750)
-            .call(zoom.transform, transform);
-    });
+            const transition = svg.transition()
+                .duration(750)
+                .tween("zoom", d => {
+                    const i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2]);
+                    return t => zoomTo(i(t));
+                });
 
-// Reset view on background click
-svg.on("click", () => {
-    svg.transition()
-        .duration(750)
-        .call(zoom.transform, d3.zoomIdentity);
-});
+            label
+                .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
+                .transition(transition)
+                .style("fill-opacity", d => d.parent === focus ? 1 : 0)
+                .on("start", function(d) { if (d.parent === focus) this.style.display = "inline"; })
+                .on("end", function(d) { if (d.parent !== focus) this.style.display = "none"; });
+        }
     </script>
 </body>
 </html>

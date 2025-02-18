@@ -10,12 +10,9 @@
 </head>
 <body>
     <div class="main-container">
-        <div class="info-container matte-display">
-            >> Patryk Gadziomski <br>
-            >> Information Scientist <br><br>
-            >> B.A. Information Science <br><br>
-            >> Data Science <br>
-            >> Knowledge Management
+        <div id="info-container" class="info-container matte-display">
+            <img id="profile-image" src="Profile Picture ideas.jpeg" alt="Profile" class="profile-image">
+            <div id="info-text" class="info-text"></div>
         </div>
         <div class="graph-container">
             <div id="graph"></div>
@@ -23,7 +20,87 @@
     </div>
 
     <script>
-        // Data structure
+        // Information content for each leaf node
+        const nodeInfo = {
+            "Python": [
+                ">> Python",
+                ">> Advanced data analysis and machine learning",
+                ">> 5+ years experience",
+                ">> Key libraries: NumPy, Pandas, Scikit-learn"
+            ],
+            "Docker": [
+                ">> Docker",
+                ">> Container virtualization",
+                ">> Experience with multi-container applications",
+                ">> Docker Compose and container orchestration for scalable deployments"
+            ],
+            // Add more entries as needed
+        };
+
+        // Default info content
+        const defaultInfo = [
+            ">> Patryk Gadziomski",
+            ">> Information Scientist",
+            "",
+            ">> B.A. Information Science",
+            "",
+            ">> Data Science",
+            ">> Knowledge Management"
+        ];
+
+        // Function to create typewriter text
+        function createTypewriterText(lines) {
+            const container = document.createElement('div');
+            container.className = 'typing-animation';
+            
+            lines.forEach((line, index) => {
+                if (line === "") {
+                    container.appendChild(document.createElement('br'));
+                } else {
+                    const lineDiv = document.createElement('div');
+                    lineDiv.className = 'typewriter-line';
+                    lineDiv.style.setProperty('--delay', index);
+                    lineDiv.textContent = line;
+                    container.appendChild(lineDiv);
+                }
+            });
+            
+            return container;
+        }
+
+        // Initialize default content
+        document.getElementById('info-text').appendChild(
+            createTypewriterText(defaultInfo)
+        );
+
+        // Function to update info panel
+        function updateInfoPanel(nodeName) {
+            const infoContainer = document.getElementById('info-container');
+            const profileImage = document.getElementById('profile-image');
+            const infoText = document.getElementById('info-text');
+            const content = nodeInfo[nodeName] || defaultInfo;
+
+            // Slide up image
+            profileImage.classList.add('small');
+
+            // Clear and update content
+            infoText.innerHTML = '';
+            infoText.appendChild(createTypewriterText(content));
+        }
+
+        // Function to reset info panel
+        function resetInfoPanel() {
+            const profileImage = document.getElementById('profile-image');
+            const infoText = document.getElementById('info-text');
+
+            // Reset image size
+            profileImage.classList.remove('small');
+
+            // Reset content
+            infoText.innerHTML = '';
+            infoText.appendChild(createTypewriterText(defaultInfo));
+        }
+
         const data = {
             name: "root",
             value: 100,
@@ -110,17 +187,14 @@
             ]
         };
 
-        // Set dimensions
         const width = 700;
         const height = width;
 
-        // Create the color scale
         const color = d3.scaleLinear()
             .domain([0, 5])
             .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
             .interpolate(d3.interpolateHcl);
 
-        // Create the pack layout
         const pack = data => d3.pack()
             .size([width, height])
             .padding(5)
@@ -132,7 +206,7 @@
         let focus = root;
         let view;
 
-        // Create the SVG container - Changed selector to #graph
+        // Modify the root click handler to reset the info panel
         const svg = d3.select("#graph")
             .append("svg")
             .attr("viewBox", `-${width / 1.25} -${height / 2.25} ${width} ${height}`)
@@ -141,42 +215,65 @@
             .style("width", "100%")
             .style("height", "100%")
             .style("cursor", "pointer")
-            .on("click", (event) => zoom(event, root));
+            .on("click", (event) => {
+                zoom(event, root);
+                resetInfoPanel();
+            });
 
-        // In the node creation, remove the stroke:
+        // Function to check if a node should be interactive
+        function isInteractive(d) {
+            if (focus === root) {
+                // Only first-level nodes are interactive at the root level
+                return d.parent === root;
+            } else {
+                // Only children of the focused node are interactive
+                return d.parent === focus;
+            }
+        }
+
         const node = svg.append("g")
             .selectAll("circle")
             .data(root.descendants().slice(1))
             .join("circle")
             .attr("fill", d => d.children ? color(d.depth) : "white")
-            .attr("pointer-events", d => !d.children ? "none" : null)
-            .attr("stroke", "none") // Remove borders
-            .on("mouseover", function() { 
-                d3.select(this)
-                    .attr("fill", "#999")
-                    .attr("stroke", "none"); // Ensure no stroke on hover
+            .attr("stroke", "none")
+            .style("cursor", d => isInteractive(d) ? "pointer" : "default")
+            .on("mouseover", function(event, d) { 
+                if (isInteractive(d)) {
+                    d3.select(this)
+                        .attr("fill", "#999")
+                        .attr("stroke", "none");
+                }
             })
             .on("mouseout", function(event, d) { 
-                d3.select(this)
-                    .attr("fill", d.children ? color(d.depth) : "white")
-                    .attr("stroke", "none"); // Ensure no stroke on mouseout
+                if (isInteractive(d)) {
+                    d3.select(this)
+                        .attr("fill", d.children ? color(d.depth) : "white")
+                        .attr("stroke", "none");
+                }
             })
             .on("click", (event, d) => {
-                if (focus !== d) {
-                    zoom(event, d);
-                    event.stopPropagation();
+                if (!isInteractive(d)) {
+                    return; // Do nothing if node isn't interactive
                 }
+                
+                if (!d.children) {
+                    updateInfoPanel(d.data.name);
+                } else {
+                    zoom(event, d);
+                }
+                event.stopPropagation();
             });
 
         const label = svg.append("g")
             .style("font", "10px sans-serif")
-            .attr("pointer-events", "none")
             .attr("text-anchor", "middle")
             .selectAll("text")
             .data(root.descendants())
             .join("text")
             .style("fill-opacity", d => d.parent === root ? 1 : 0)
             .style("display", d => d.parent === root ? "inline" : "none")
+            .style("pointer-events", "none")
             .each(function(d) {
                 const lines = d.data.name.split("\n");
                 d3.select(this)
@@ -194,12 +291,13 @@
             const k = width / v[2];
             view = v;
             
-            // Update the position of the text elements (not tspans)
             label.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
-            
-            // Update the node positions
             node.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
             node.attr("r", d => d.r * k);
+            
+            // Update interactivity based on new focus
+            node.style("cursor", d => isInteractive(d) ? "pointer" : "default")
+               .style("pointer-events", d => isInteractive(d) ? "auto" : "none");
         }
 
         function zoom(event, d) {
@@ -219,6 +317,13 @@
                 .style("fill-opacity", d => d.parent === focus ? 1 : 0)
                 .on("start", function(d) { if (d.parent === focus) this.style.display = "inline"; })
                 .on("end", function(d) { if (d.parent !== focus) this.style.display = "none"; });
+
+            // Update node interactivity after zoom
+            node.each(function(d) {
+                d3.select(this)
+                    .style("cursor", isInteractive(d) ? "pointer" : "default")
+                    .style("pointer-events", isInteractive(d) ? "auto" : "none");
+            });
         }
     </script>
 </body>

@@ -26,6 +26,9 @@ body {
     width: 300px;
     color: white;
     margin: 15px;
+    max-width: 100%;
+    overflow-x: hidden;
+    word-wrap: break-word;
 }
 
 .matte-display {
@@ -60,3 +63,75 @@ svg {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+@keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 2s ease-in forwards;
+        }
+
+        .profile-image.small {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+            animation: slideUp 0.5s ease-in-out forwards;
+        }
+
+        .info-text {
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+            animation-delay: 1s;
+            width: 100%;
+        }
+
+        .typing-animation {
+            width: 100%;
+        }
+
+        .typewriter-line {
+            overflow: hidden;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-right: 2px solid transparent;
+            width: 0;
+            animation: typing 1s steps(40, end) forwards;
+            animation-delay: calc(var(--delay) * 100ms);
+            margin-bottom: 5px;
+            max-width: 100%;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink {
+            50% { border-color: white; }
+        }
+
+        .typing-animation .typewriter-line:last-child {
+            border-right-color: white;
+            animation: typing 1s steps(40, end) forwards,
+                       blink 0.75s step-end infinite;
+        }
+
+        /* Add text wrapping for long lines */
+        .typewriter-line {
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
+        }

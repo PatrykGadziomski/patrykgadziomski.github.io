@@ -1,330 +1,385 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Patryk Gadziomski</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
-</head>
-<body>
-    <div class="main-container">
-        <div id="info-container" class="info-container matte-display">
-            <img id="profile-image" src="Profile Picture ideas.jpeg" alt="Profile" class="profile-image">
-            <div id="info-text" class="info-text"></div>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="stylesheet.css" />
+    <script src="main.js"></script>
+    <title>Patryk Gadziomski | Information Scientist</title>
+  </head>
+
+  <body>
+
+    <nav>
+        <h1><a href="index.html">PATRYK GADZIOMSKI</a></h1>
+        <ul class="navigation">
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <button class="burger-menu" id="burger-menu">
+          <ion-icon class="bars" name="menu-outline"></ion-icon>
+        </button>
+    </nav>
+
+    <section class="hero" id="about">
+        <img
+          src="img/_DSC1823.jpg"
+          alt="patryk-gadziomski"
+          loading="lazy"
+          class="hero-img"
+        />
+        <div class="bio animate__animated animate__shakeX">
+          <h2 class="bio-title">About Me</h2>
+          <p class="bio-text">
+            I am a Data Scientist, Librarian and Manager, or 
+            Information Scientist for short.
+            So if you need someone for Data Analysis, Machine Learning, 
+            Data Extraction, Knowledge Management, or data related Project Management, 
+            you've come to the right place!
+          </p>
         </div>
-        <div class="graph-container">
-            <div id="graph"></div>
+    </section>
+
+    <section class="more-about">
+        <h2>More About Me</h2>
+        <p>
+            I am currently studying information science at the Stuttgart 
+            Media University, specialising in the data-related areas of my 
+            degree course. 
+            My primary interests include data extraction through web scraping, 
+            artificial intelligence, data analysis, and storage.
+        </p>
+        <p>
+            In addition to my studies, I also work as a tutor at the Stuttgart
+            Media University and as a research assistant in the library 
+            for business administration at the University of Stuttgart.
+        </p>
+        <p>
+          I also have an interest in non-fiction 
+          literature and enjoy drinking tea and coffee. Additionally, I practice 
+          fencing during my free time.
+        </p>
+    </section>
+
+    <section class="skills" id="skills">
+        <h2 class="skill-header">My Skills</h2>
+  
+        <div class="skills-wrapper">
+          <div class="first-set animate__animated animate__pulse">
+            <img
+              src="icons/html-5.png"
+              alt="html"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/css-3.png"
+              alt="css"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/js.png"
+              alt="java script"
+              loading="lazy"
+              class="icon icon-card"
+            />
+          </div>
+  
+          <div class="second-set animate__animated animate__pulse">
+            <img
+              src="icons/python.png"
+              alt="python"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/sql-server.png"
+              alt="sql"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/excel.png"
+              alt="excel"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/r.png"
+              alt="r"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/tableau-LOGO.png"
+              alt="tableau"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/knime.png"
+              alt="knime"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/pytorch-logo.png"
+              alt="pytorch"
+              loading="lazy"
+              class="icon icon-card"
+            />
+          </div>
+
+          <div class="third-set animate__animated animate__pulse">
+            <img
+              src="icons/vscode.png"
+              alt="html"
+              loading="lazy"
+              class="icon icon-card"
+            />
+            <img
+              src="icons/git.png"
+              alt="git"
+              loading="lazy"
+              class="icon icon-card"
+            />
         </div>
+        <div class="fourth-set animate__animated animate__pulse">
+          <img
+            src="icons/german.png"
+            alt="german"
+            loading="lazy"
+            class="icon icon-card"
+          />
+          <img
+            src="icons/poland.png"
+            alt="polish"
+            loading="lazy"
+            class="icon icon-card"
+          />
+          <img
+            src="icons/united-kingdom.png"
+            alt="english"
+            loading="lazy"
+            class="icon icon-card"
+          />
+      </div>
+    </section>
+
+    <section class="projects" id="projects">
+        <h2 class="projects-title">My Projects</h2>
+        <div class="projects-container">
+          <div class="project-container project-card">
+            <img
+              src="img/CovidDashboard.png"
+              alt="covid-dashboard"
+              loading="lazy"
+              class="project-pic"
+            />
+            <h3 class="project-title">COVID-19 Dashboard</h3>
+            <p class="project-details">
+              This project analyzes COVID death and infection data 
+              from 02/24/2020 to 09/06/2022 and presents it in a dashboard.
+            </p>
+            <a href="https://github.com/PatrykGadziomski/COVID-19-Data-Exploration-and-Visualization" target="_blank" class="project-link">Check it Out</a>
+          </div>
+          <div class="project-container project-card">
+            <img
+              src="img/Bike_sales_dashbaord.png"
+              alt="boke-sales-dashboard"
+              loading="lazy"
+              class="project-pic"
+            />
+            <h3 class="project-title">Bike Sales Dashboard</h3>
+            <p class="project-details">
+              In this project, I analyze bicycle sales.<br> The analysis 
+              focuses on cleaning data and generating a final visualization in Excel.
+            </p>
+            <a href="https://github.com/PatrykGadziomski/Data-Cleaning-and-Visualization-in-Excel" target="_blank" class="project-link">Check it Out</a>
+          </div>
+          <div class="project-container project-card">
+            <img
+              src="img/AirBnB-Seattle-2016-Dashboard.png"
+              alt="air-bnb-seattle-2016"
+              loading="lazy"
+              class="project-pic"
+            />
+            <h3 class="project-title">AirBnB Seattle 2016</h3>
+            <p class="project-details">
+              In this project, we analyze data from Airbnb listings in Seattle 
+              from 2016. The emphasis is on utilizing Tableau for data visualization.
+            </p>
+            <a href="https://github.com/PatrykGadziomski/AirBnB-Seattle-2016-Data-Visualization-in-Tableau" target="_blank" class="project-link">Check it Out</a>
+          </div>
+        </div>
+
+        <div class="projects-container">
+            <div class="project-container project-card">
+              <img
+                src="img/AMAI_Banner.png"
+                alt="amai"
+                loading="lazy"
+                class="project-pic"
+              />
+              <h3 class="project-title">Inquiry Assistant</h3>
+              <p class="project-details">
+                The project was the prototypical development of a dashboard 
+                for the evaluation of customer inquiries using NLP and other Technologies.
+              </p>
+              <a class="project-link">No Preview available</a>
+            </div>
+            <div class="project-container project-card"> <!--This window is to big!!!!-->
+                <img
+                  src="img/anidex.png"
+                  alt="amai"
+                  loading="lazy"
+                  class="project-pic"
+                />
+                <h3 class="project-title">Anidex</h3>
+                <p class="project-details">
+                    This project features a web application powered by a database. The application 
+                    enables users to search, create, modify, and delete entries stored in the database.
+                </p>
+                <a class="project-link">No Preview available</a>
+              </div>
+              <div class="project-container project-card">
+                <img
+                  src="img/gemuese-und-ein-italienisches-messer-auf-der-linken-seite-von-einem-schwarzen-tisch.jpg"
+                  alt=""
+                  loading="lazy"
+                  class="project-pic"
+                />
+                <h3 class="project-title">Culinary AI</h3>
+                <p class="project-details">
+                  The following project involves data collection with 
+                  web-scraping and fine-tuning of a AI model for recipe generation.
+                </p>
+                <a class="project-link">project in progress</a>
+              </div>
+          </div>
+
+          <div class="projects-container">
+            <div class="project-container project-card">
+              <img
+                src="img/TheAiGames_Bildmarke.png"
+                alt=""
+                loading="lazy"
+                class="project-pic"
+              />
+              <h3 class="project-title">The AI Games</h3>
+              <p class="project-details">
+                This project encompasses planning and executing the "AI Games" 
+                at the Stuttgart Media University, covering both the organizational and 
+                technical aspects.
+              </p>
+              <a class="project-link">project in progress</a>
+            </div>
+            <div class="project-container project-card">
+                <img
+                  src="img/fahrradverleih-auf-der-strasse.jpg"
+                  alt=""
+                  loading="lazy"
+                  class="project-pic"
+                />
+                <h3 class="project-title">Bike Rental Analysis and Prediction</h3>
+                <p class="project-details">
+                  This project encompasses all steps of Data Science, 
+                  ranging from data exploration and analysis to predicting bike rentals 
+                  via a linear regression model.
+                </p>
+                <a class="project-link">project in progress</a>
+              </div>
+              <div class="project-container project-card">
+                <img
+                  src="img/2112.q702.003.S.m005.c12.library illustration.jpg"
+                  alt=""
+                  loading="lazy"
+                  class="project-pic"
+                />
+                <h3 class="project-title">Visitor Forecast</h3>
+                <p class="project-details">
+                  This project consists of digitizing analog statistics, 
+                  creating a dataset, and training an AI model for visitor 
+                  forecasting for the library for business administration.
+                </p>
+                <a class="project-link">project in progress</a>
+              </div>
+          </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2>Get In Touch With Me</h2>
+        <div class="contact-form-container">
+          <div class="contact-form">
+            <form action="https://formspree.io/f/xknldnbe" method="POST">
+              <div class="form-control">
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="sender-name"
+                  placeholder="Enter Your Name"
+                  class="input-field"
+                  required
+                />
+              </div>
+              <div class="form-control">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="sender-email"
+                  placeholder="Enter Your Email"
+                  class="input-field"
+                  required
+                />
+              </div>
+              <div class="form-control">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  cols="60"
+                  rows="10"
+                  placeholder="Enter Your Message"
+                  name="message"
+                  class="input-field"
+                  required
+                ></textarea>
+              </div>
+              <input
+                type="submit"
+                value="Submit"
+                id="submit-btn"
+                class="submit-btn"
+              />
+            </form>
+          </div>
+        </div>
+    </section>
+
+    <div class="socials">
+            <a href="https://www.linkedin.com/in/patryk-gadziomski-75215a239/" target="_blank">
+              <img
+                src="icons/linkedin.png"
+                alt="Linkedin"
+                loading="lazy"
+                class="socicon"/>
+              </a>
+            <a href="https://github.com/PatrykGadziomski" target="_blank">
+              <img src="icons/github.png" alt="Github" class="socicon"/>
+            </a>
     </div>
 
-    <script>
-        // Information content for each leaf node
-        const nodeInfo = {
-            "Python": [
-                ">> Python",
-                ">> Advanced data analysis and machine learning",
-                ">> 5+ years experience",
-                ">> Key libraries: NumPy, Pandas, Scikit-learn"
-            ],
-            "Docker": [
-                ">> Docker",
-                ">> Container virtualization",
-                ">> Experience with multi-container applications",
-                ">> Docker Compose and container orchestration for scalable deployments"
-            ],
-            // Add more entries as needed
-        };
+    <footer>
+        <p class="copy">&copy; Copyright 2023</p>
+        <p class="copy">
+          by Patryk Gadziomski
+        </p>
+    </footer>
 
-        // Default info content
-        const defaultInfo = [
-            ">> Patryk Gadziomski",
-            ">> Information Scientist",
-            "",
-            ">> B.A. Information Science",
-            "",
-            ">> Data Science",
-            ">> Knowledge Management"
-        ];
-
-        // Function to create typewriter text
-        function createTypewriterText(lines) {
-            const container = document.createElement('div');
-            container.className = 'typing-animation';
-            
-            lines.forEach((line, index) => {
-                if (line === "") {
-                    container.appendChild(document.createElement('br'));
-                } else {
-                    const lineDiv = document.createElement('div');
-                    lineDiv.className = 'typewriter-line';
-                    lineDiv.style.setProperty('--delay', index);
-                    lineDiv.textContent = line;
-                    container.appendChild(lineDiv);
-                }
-            });
-            
-            return container;
-        }
-
-        // Initialize default content
-        document.getElementById('info-text').appendChild(
-            createTypewriterText(defaultInfo)
-        );
-
-        // Function to update info panel
-        function updateInfoPanel(nodeName) {
-            const infoContainer = document.getElementById('info-container');
-            const profileImage = document.getElementById('profile-image');
-            const infoText = document.getElementById('info-text');
-            const content = nodeInfo[nodeName] || defaultInfo;
-
-            // Slide up image
-            profileImage.classList.add('small');
-
-            // Clear and update content
-            infoText.innerHTML = '';
-            infoText.appendChild(createTypewriterText(content));
-        }
-
-        // Function to reset info panel
-        function resetInfoPanel() {
-            const profileImage = document.getElementById('profile-image');
-            const infoText = document.getElementById('info-text');
-
-            // Reset image size
-            profileImage.classList.remove('small');
-
-            // Reset content
-            infoText.innerHTML = '';
-            infoText.appendChild(createTypewriterText(defaultInfo));
-        }
-
-        const data = {
-            name: "root",
-            value: 100,
-            children: [
-                {
-                    name: "Education",
-                    value: 10,
-                    children: [
-                        { name: "Media University, Stuttgart\nB.A. Information Science", value: 10 }
-                    ]
-                },
-                {
-                    name: "Experience",
-                    value: 20,
-                    children: [
-                        { name: "B1", value: 10 },
-                        { name: "B2", value: 10 }
-                    ]
-                },
-                {
-                    name: "Projects",
-                    value: 30,
-                    children: [
-                        { name: "C1", value: 15 },
-                        { name: "C2", value: 15 }
-                    ]
-                },
-                {
-                    name: "Skills",
-                    value: 40,
-                    children: [
-                        { name: "Data Science", value: 20, children: [ 
-                            { name: "Python", value: 1 },
-                            { name: "Matplotlib", value: 1 },
-                            { name: "Numpy", value: 1 },
-                            { name: "Pandas", value: 1 },
-                            { name: "Plotly", value: 1 },
-                            { name: "Scikit-Learn", value: 1 },
-                            { name: "PyTorch", value: 1 },
-                            { name: "R", value: 1 }
-                        ]},
-                        { name: "Social", value: 1, children: [
-                            { name: "Discord", value: 1 },
-                            { name: "LinkedIn", value: 1 }
-                        ]},
-                        { name: "Design", value: 1, children: [
-                            { name: "Figma", value: 1 },
-                            { name: "Canva", value: 1 }
-                        ]},
-                        { name: "Game Development", value: 1, children: [
-                            { name: "Godot", value: 1 }
-                        ]},
-                        { name: "Git", value: 1, children: [
-                            { name: "Git", value: 1 },
-                            { name: "GitHub", value: 1 },
-                            { name: "GitLab", value: 1 },
-                            { name: "GitHub Pages", value: 1 }
-                        ]},
-                        { name: "Web Development", value: 1, children: [
-                            { name: "JavaScript", value: 1 },
-                            { name: "HTML", value: 1 },
-                            { name: "CSS", value: 1 },
-                            { name: "TailwindCSS", value: 1 }
-                        ]},
-                        { name: "Databases", value: 1, children: [
-                            { name: "MySQL", value: 1 },
-                            { name: "SQLite", value: 1 },
-                            { name: "MongoDB", value: 1 }
-                        ]},
-                        { name: "Software I like", value: 1, children: [
-                            { name: "Obsidian", value: 1 },
-                            { name: "Notion", value: 1 },
-                            { name: "VS Code", value: 1 },
-                            { name: "Anaconda", value: 1 }
-                        ]},
-                        { name: "Others", value: 1, children: [
-                            { name: "Markdown", value: 1 },
-                            { name: "Latex", value: 1 },
-                            { name: "Hugging Face", value: 1 },
-                            { name: "Docker", value: 1 }
-                        ]},
-                    ]
-                },
-            ]
-        };
-
-        const width = 700;
-        const height = width;
-
-        const color = d3.scaleLinear()
-            .domain([0, 5])
-            .range(["hsl(152,80%,80%)", "hsl(228,30%,40%)"])
-            .interpolate(d3.interpolateHcl);
-
-        const pack = data => d3.pack()
-            .size([width, height])
-            .padding(5)
-            (d3.hierarchy(data)
-                .sum(d => d.value)
-                .sort((a, b) => b.value - a.value));
-
-        const root = pack(data);
-        let focus = root;
-        let view;
-
-        // Modify the root click handler to reset the info panel
-        const svg = d3.select("#graph")
-            .append("svg")
-            .attr("viewBox", `-${width / 1.25} -${height / 2.25} ${width} ${height}`)
-            .style("display", "block")
-            .style("margin", "0")
-            .style("width", "100%")
-            .style("height", "100%")
-            .style("cursor", "pointer")
-            .on("click", (event) => {
-                zoom(event, root);
-                resetInfoPanel();
-            });
-
-        // Function to check if a node should be interactive
-        function isInteractive(d) {
-            if (focus === root) {
-                // Only first-level nodes are interactive at the root level
-                return d.parent === root;
-            } else {
-                // Only children of the focused node are interactive
-                return d.parent === focus;
-            }
-        }
-
-        const node = svg.append("g")
-            .selectAll("circle")
-            .data(root.descendants().slice(1))
-            .join("circle")
-            .attr("fill", d => d.children ? color(d.depth) : "white")
-            .attr("stroke", "none")
-            .style("cursor", d => isInteractive(d) ? "pointer" : "default")
-            .on("mouseover", function(event, d) { 
-                if (isInteractive(d)) {
-                    d3.select(this)
-                        .attr("fill", "#999")
-                        .attr("stroke", "none");
-                }
-            })
-            .on("mouseout", function(event, d) { 
-                if (isInteractive(d)) {
-                    d3.select(this)
-                        .attr("fill", d.children ? color(d.depth) : "white")
-                        .attr("stroke", "none");
-                }
-            })
-            .on("click", (event, d) => {
-                if (!isInteractive(d)) {
-                    return; // Do nothing if node isn't interactive
-                }
-                
-                if (!d.children) {
-                    updateInfoPanel(d.data.name);
-                } else {
-                    zoom(event, d);
-                }
-                event.stopPropagation();
-            });
-
-        const label = svg.append("g")
-            .style("font", "10px sans-serif")
-            .attr("text-anchor", "middle")
-            .selectAll("text")
-            .data(root.descendants())
-            .join("text")
-            .style("fill-opacity", d => d.parent === root ? 1 : 0)
-            .style("display", d => d.parent === root ? "inline" : "none")
-            .style("pointer-events", "none")
-            .each(function(d) {
-                const lines = d.data.name.split("\n");
-                d3.select(this)
-                    .selectAll("tspan")
-                    .data(lines)
-                    .join("tspan")
-                    .attr("x", 0)
-                    .attr("dy", (d, i) => i === 0 ? 0 : "1.1em")
-                    .text(d => d);
-            });
-
-        zoomTo([root.x, root.y, root.r * 2]);
-
-        function zoomTo(v) {
-            const k = width / v[2];
-            view = v;
-            
-            label.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
-            node.attr("transform", d => `translate(${(d.x - v[0]) * k},${(d.y - v[1]) * k})`);
-            node.attr("r", d => d.r * k);
-            
-            // Update interactivity based on new focus
-            node.style("cursor", d => isInteractive(d) ? "pointer" : "default")
-               .style("pointer-events", d => isInteractive(d) ? "auto" : "none");
-        }
-
-        function zoom(event, d) {
-            const focus0 = focus;
-            focus = d;
-
-            const transition = svg.transition()
-                .duration(750)
-                .tween("zoom", d => {
-                    const i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2]);
-                    return t => zoomTo(i(t));
-                });
-
-            label
-                .filter(function(d) { return d.parent === focus || this.style.display === "inline"; })
-                .transition(transition)
-                .style("fill-opacity", d => d.parent === focus ? 1 : 0)
-                .on("start", function(d) { if (d.parent === focus) this.style.display = "inline"; })
-                .on("end", function(d) { if (d.parent !== focus) this.style.display = "none"; });
-
-            // Update node interactivity after zoom
-            node.each(function(d) {
-                d3.select(this)
-                    .style("cursor", isInteractive(d) ? "pointer" : "default")
-                    .style("pointer-events", isInteractive(d) ? "auto" : "none");
-            });
-        }
-    </script>
-</body>
+  </body>
 </html>

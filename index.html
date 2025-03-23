@@ -191,8 +191,8 @@
 
     <div class="content-wrapper">
         <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Nach Projekten oder Technologien suchen..." id="search-input">
-            <div class="project-counter" id="project-counter">Zeige 6 Projekte</div>
+            <input type="text" class="search-bar" placeholder="Search for projects or technologies..." id="search-input">
+            <div class="project-counter" id="project-counter">Show all 11 projects</div>
         </div>
         
         <main class="content" id="projects-container">
@@ -373,7 +373,7 @@
                     if (!noResultsMessage) {
                         const message = document.createElement('div');
                         message.className = 'no-results';
-                        message.textContent = 'Keine Projekte gefunden. Versuche es mit einem anderen Suchbegriff.';
+                        message.textContent = 'No projects found.';
                         projectsContainer.appendChild(message);
                     }
                 } else if (noResultsMessage) {
@@ -386,9 +386,9 @@
                 const totalProjects = projectCards.length;
                 
                 if (count === totalProjects) {
-                    projectCounter.textContent = `Zeige alle ${count} Projekte`;
+                    projectCounter.textContent = `Showing all ${count} projects`;
                 } else {
-                    projectCounter.textContent = `Zeige ${count} von ${totalProjects} Projekten`;
+                    projectCounter.textContent = `${count} of ${totalProjects} projects`;
                 }
             }
 

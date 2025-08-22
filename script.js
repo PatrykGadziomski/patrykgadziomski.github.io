@@ -1,26 +1,3 @@
-// Toggling Skill Tabs
-
-const tabs = document.querySelectorAll('[data-target]');
-const tabContent = document.querySelectorAll('[data-content]');
-
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        const target = document.querySelector(tab.dataset.target);
-
-        tabContent.forEach(tabContents => {
-            tabContents.classList.remove('skills-active');
-        })
-
-        target.classList.add('skills-active');
-
-        tabs.forEach(tab => {
-            tab.classList.remove('skills-active');
-        })
-
-        tab.classList.add('skills-active');
-    })
-})
-
 //Mix it up Sorting
 
 let mixerPortfolio = mixitup('.work-container', {
@@ -64,9 +41,9 @@ function portfolioItemDetails(portfolioItem) {
 }
 
 //Services Popup
-const modalViews = document.querySelectorAll('.services-modal');
-const modelBtns = document.querySelectorAll('.services-button');
-const modalCloses = document.querySelectorAll('.services-modal-close');
+const modalViews = document.querySelectorAll('.research-modal');
+const modelBtns = document.querySelectorAll('.research-button');
+const modalCloses = document.querySelectorAll('.research-modal-close');
 
 let modal = function(modalClick) {
     modalViews[modalClick].classList.add('active-modal');
@@ -85,27 +62,6 @@ modalCloses.forEach((modalClose) => {
         })
     })
 })
-
-//Swiper Testimonial
-
-let swiper = new Swiper(".testimonials-container", {
-    spaceBetween: 24,
-    loop: true,
-    grabCursor: true,
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    breakpoints: {
-        576: {
-            slidesPerView: 2,
-        },
-        768: {
-            slidesPerView: 2,
-            spaceBetween: 48,
-        },
-    },
-});
 
 // Input Animation
 

@@ -24,14 +24,14 @@ body {
 .container {
     position: relative;
     z-index: 2;
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 60px 40px 60px 40px;
     background: rgba(255, 255, 255, 0.95);
 }
 
 header {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
     border-bottom: 1px solid #ddd;
     padding-bottom: 30px;
     display: flex;
@@ -62,6 +62,7 @@ h1 {
     color: #333;
     line-height: 1.7;
     margin-bottom: 15px;
+    text-align: justify;
 }
 
 .social-links {
@@ -95,6 +96,43 @@ h1 {
 
 .news-item {
     margin-bottom: 8px;
+}
+
+.nav-tabs {
+    display: flex;
+    gap: 5px;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 40px;
+}
+
+.nav-tab {
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 1em;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.nav-tab:hover {
+    color: #333;
+    background: #f5f5f5;
+}
+
+.nav-tab.active {
+    color: #0066cc;
+    border-bottom-color: #0066cc;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
 }
 
 .subtitle {
@@ -151,6 +189,7 @@ h1 {
     color: #666;
     font-size: 0.9em;
     line-height: 1.5;
+    margin-bottom: 15px;
 }
 
 .pub-authors .me {
@@ -176,6 +215,58 @@ h1 {
     text-decoration: underline;
 }
 
+.book {
+    margin-bottom: 35px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    gap: 20px;
+}
+
+.book:last-child {
+    border-bottom: none;
+}
+
+.book-cover {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid #ddd;
+    background: #f5f5f5;
+}
+
+.book-info {
+    flex: 1;
+}
+
+.book-title {
+    font-size: 1.15em;
+    font-weight: 500;
+    color: #000;
+    margin-bottom: 6px;
+}
+
+.book-author {
+    color: #666;
+    font-size: 0.95em;
+    margin-bottom: 10px;
+}
+
+.book-description {
+    color: #333;
+    font-size: 0.9em;
+    line-height: 1.6;
+}
+
+.skill {
+    border: solid 1px;
+    border-radius: 5px;
+    padding: 8px 16px;
+    color: #0052a3;
+    font-size: 12px;
+}
+
 @media (max-width: 768px) {
     #canvas {
         width: 150px;
@@ -198,5 +289,14 @@ h1 {
     
     h1 {
         font-size: 1.8em;
+    }
+
+    .book {
+        flex-direction: column;
+    }
+
+    .book-cover {
+        width: 80px;
+        height: 120px;
     }
 }

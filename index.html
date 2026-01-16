@@ -1,580 +1,686 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Patryk Gadziomski</title>
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <link rel="stylesheet" href="style.css">
+    <title>PatrykGadziomski</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #ffffff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        #canvas {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 40px 60px 40px;
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        header {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 30px;
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+
+        .profile-pic {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        h1 {
+            font-size: 2em;
+            font-weight: 400;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .bio {
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #f0f0f0;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: background 0.2s;
+        }
+
+        .social-links a:hover {
+            background: #e0e0e0;
+        }
+
+        .news {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        .news-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 5px;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 40px;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 1em;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .nav-tab:hover {
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        .nav-tab.active {
+            color: #0066cc;
+            border-bottom-color: #0066cc;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .contact-links {
+            margin-top: 15px;
+        }
+
+        .contact-links a {
+            color: #0066cc;
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 0.95em;
+        }
+
+        .contact-links a:hover {
+            color: #0052a3;
+            text-decoration: underline;
+        }
+
+        .publications {
+            margin-top: 40px;
+        }
+
+        .publication {
+            margin-bottom: 40px;
+            padding-bottom: 35px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .publication:last-child {
+            border-bottom: none;
+        }
+
+        .pub-title {
+            font-size: 1.2em;
+            font-weight: 500;
+            color: #000;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .pub-venue {
+            color: #0066cc;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+        }
+
+        .pub-authors {
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .pub-authors .me {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .pub-links {
+            margin-top: 10px;
+        }
+
+        .pub-links a {
+            display: inline-block;
+            color: #0066cc;
+            text-decoration: none;
+            font-size: 0.85em;
+            margin-right: 15px;
+            padding: 4px 0;
+        }
+
+        .pub-links a:hover {
+            color: #0052a3;
+            text-decoration: underline;
+        }
+
+        .book {
+            margin-bottom: 35px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            gap: 20px;
+        }
+
+        .book:last-child {
+            border-bottom: none;
+        }
+
+        .book-cover {
+            width: 100px;
+            height: 150px;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1px solid #ddd;
+            background: #f5f5f5;
+        }
+
+        .book-info {
+            flex: 1;
+        }
+
+        .book-title {
+            font-size: 1.15em;
+            font-weight: 500;
+            color: #000;
+            margin-bottom: 6px;
+        }
+
+        .book-author {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .book-description {
+            color: #333;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        .skill {
+            border: solid 1px;
+            border-radius: 5px;
+            padding: 8px 16px;
+            color: #0052a3;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            #canvas {
+                width: 150px;
+            }
+            
+            .container {
+                padding: 40px 20px;
+            }
+            
+            header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .profile-pic {
+                width: 120px;
+                height: 120px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .book {
+                flex-direction: column;
+            }
+
+            .book-cover {
+                width: 80px;
+                height: 120px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="nav-toggle" id="nav-toggle">
-        <i class="uil uil-bars"></i>
+    <canvas id="canvas"></canvas>
+    
+    <div class="container">
+        <header>
+            <img src="imgs/V2.jpg" alt="Profile Picture" class="profile-pic">
+            <div class="header-content">
+                <h1>B.A. Patryk Gadziomski</h1>
+                <div class="bio">
+                    Hi, I’m a Library and Computer Science student at the Technical 
+                    University of Applied Sciences Wildau, deeply fascinated by 
+                    the science of information — how we organize it, how it evolves, 
+                    and how it shapes knowledge. Before starting my current master’s 
+                    program at the Technical University of Applied Sciences Wildau, 
+                    I completed my Bachelor of Arts in Information Sciences at 
+                    the Media University Stuttgart.
+                </div>
+                <div class="social-links">
+                    <a href="mailto:gadziomski@etik.com">Email</a>
+                    <a href="https://orcid.org/0009-0002-8381-7712" target="_blank">ORCID</a>
+                    <a href="https://github.com/PatrykGadziomski" target="_blank">GitHub</a>
+                    <a href="https://www.linkedin.com/in/patryk-gadziomski-75215a239/" target="_blank">LinkedIn</a>
+                </div>
+                <div class="bio">
+                    Research Projects in Development:
+                    <ul style="padding-left: 50px;">
+                        <li>
+                            "Zukunftsforschung für unsere Bibliotheken – Zukunft strategisch begegnen"
+                            submitted to: "Poster im Bundestag. Wissenschaftsfreiheit - die Freiheit zu forschen" 2026.
+                        </li>
+                    </ul> 
+                </div>
+            </div>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="switchTab(event, 'publications')">Publications</button>
+            <button class="nav-tab" onclick="switchTab(event, 'projects')">Talks</button>
+            <button class="nav-tab" onclick="switchTab(event, 'awards')">Awards</button>
+            <button class="nav-tab" onclick="switchTab(event, 'books')">Book Recommendations</button>
+        </div>
+
+        <div id="publications" class="tab-content active">
+            <div class="publications">
+
+                <div class="publication">
+                    <div class="pub-title"><a href="https://doi.org/10.1515/iwp-2025-2040" target="_blank">Zukunftsbilder für Bibliotheken: Snapshots aus dem Jahr 2035</a></div>
+                    <div class="pub-venue">Information – Wissenschaft & Praxis ; 2025</div>
+                    <div class="pub-authors">
+                        Patryk Gadziomski, Sandra Kovac, Monique Müller, 
+                        Katrin Uebelgünn, Laura Zerrer, Nina-Marie Ziemann
+                    </div>
+                    <div class="social-links">
+                        <p class="skill">future literacy</p>
+                        <p class="skill">library science</p>
+                        <p class="skill">future foresight</p>
+                    </div>
+                </div>
+
+                <div class="publication">
+                    <div class="pub-title"><a href="https://www.b-i-t-online.de/heft/2025-04-nachrichtenbeitrag-gadziomski.pdf" target="_blank">Snapshots from the future - Ein Blick auf Bibliotheken im Jahr 2035</a></div>
+                    <div class="pub-venue">b.i.t. online ; 2025</div>
+                    <div class="pub-authors">
+                        Patryk Gadziomski, Sandra Kovac, Monique Müller, 
+                        Katrin Uebelgünn, Laura Zerrer, Nina-Marie Ziemann
+                    </div>
+                    <div class="social-links">
+                        <p class="skill">future literacy</p>
+                        <p class="skill">library science</p>
+                        <p class="skill">future foresight</p>
+                    </div>
+                </div>
+
+                <div class="publication">
+                    <div class="pub-title"><a href="https://elib.dlr.de/215838/" target="_blank">Extraction of Location References and Topics from Semi-Structured Textual Data from the Open Web Index using Open-Source Large Language Models</a></div>
+                    <div class="pub-venue">Stuttgart Media University, German Aerospace Center ; 2025</div>
+                    <div class="pub-authors">Patry Gadziomski, Vanessa Rittlinger, Magnus Pfeffer, Stefan Voigt
+                    </div>
+                    <div class="social-links">
+                        <p class="skill">natural language processing</p>
+                        <p class="skill">large language model</p>
+                        <p class="skill">geocoding</p>
+                        <p class="skill">green ai</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="projects" class="tab-content">
+            <div class="projects">
+
+                <div class="publication">
+                    <div class="pub-title"><a href="https://www.schweitzer-online.de/info/Schweitzer-Zukunftsforum-Digitale-Bibliotheken-05112025/" target="_blank">Zukunft in Bibliotheken strategisch begegnen</a></div>
+                    <div class="pub-venue">Schweitzer Zukunftsforum: Digitale Bibliotheken ; 2025</div>
+                    <div class="pub-authors">Nina-Marie Ziemann, Patryk Gadziomski</div>
+                    <div class="social-links">
+                        <p class="skill">future literacy</p>
+                        <p class="skill">library science</p>
+                        <p class="skill">future foresight</p>
+                    </div>
+                </div>
+
+                <div class="publication">
+                    <div class="pub-title"><a href="https://doi.org/10.5281/zenodo.17238018" target="_blank">Towards the Extraction of Location References and Topics from Semi-Structured Textual Data from the Open Web Index using Open-Source Large Language Models</a></div>
+                    <div class="pub-venue">Open Search Symposium ; 2025</div>
+                    <div class="pub-authors">Patry Gadziomski, Vanessa Rittlinger, Magnus Pfeffer, Stefan Voigt
+                    </div>
+                    <div class="social-links">
+                        <a class="skill" href="https://indico.cern.ch/event/1477549/contributions/6710001/" target="_blank">conference presentation</a>
+                    </div>
+                    <div class="social-links">
+                        <p class="skill">natural language processing</p>
+                        <p class="skill">large language model</p>
+                        <p class="skill">geocoding</p>
+                        <p class="skill">green ai</p>
+                    </div>
+                </div>
+
+                <div class="publication">
+                    <div class="pub-title"><a href="https://opus4.kobv.de/opus4-bib-info/frontdoor/index/index/docId/19530" target="_blank">Team Award Information Professionals (TIP) Award Ceremony</a></div>
+                    <div class="pub-venue">BiblioCon ; 2025</div>
+                    <div class="pub-authors">
+                        Naoka Werr, Ulla Wimmer, Laura Hillebrand, Veronika Kistler, Rebecca Pöllmann, 
+                        Nina Retzlaff, Isabella Rosner, Anna-Maria Schuster, Patryk Gadziomski, 
+                        Julia Hoff, Sandra Kovac, Julia Loka, Monique Müller, Michael Ruf, Katrin Uebelgünn, 
+                        Laura Zerrer, Nina-Marie Ziemann, Lea Schlicher, Jessica Roschanski, Christoph Kraft, Christian Imwalle
+                    </div>
+                    <div class="social-links">
+                        <p class="skill">future literacy</p>
+                        <p class="skill">library science</p>
+                        <p class="skill">future foresight</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="awards" class="tab-content">
+            <div class="awards">
+
+                <div class="publication">
+                    <div class="pub-info">
+                        <div class="pub-title"><a href="https://doi.org/10.1515/iwp-2025-2025" target="_blank">Team Award Information Professional (TIP Award)</a></div>
+                        <div class="pub-venue">Media  University, Stuttgart</div>
+                        <div class="pub-authors">
+                            <span>
+                            Patryk Gadziomski, Julia Hoff, Sandra Kovac, Julia Loka, 
+                            Monique Müller, Michael Ruf, Karin Uebelgünn, 
+                            Laura Zerrer, Nina-Marie Ziemann
+                            </span>
+                        </div>
+                        <div class="social-links">
+                            <p class="skill">future literacy</p>
+                            <p class="skill">library science</p>
+                            <p class="skill">future foresight</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="books" class="tab-content">
+            <p style="margin-bottom: 40px">
+                I’m not a book criticm but I do love to read.
+                I’m happy to share some of the books that have truly inspired me, 
+                helped me navigate challenges in my work or studies, or simply 
+                made a difference in my life. Consider this my personal 
+                “recommended reads” list, no reviews, just heartfelt recommendations.
+            </p>
+            <div class="books">
+                <div class="book">
+                    <img src="imgs/books/deep_thinking.jpg" alt="Buchcover" class="book-cover">
+                    <div class="book-info">
+                        <div class="book-title">Deep Thinking - Where Machine Intelligence Ends and Human Creativity Begins</div>
+                        <div class="book-author">Garry Kasparov, Mig Greengard ; [2017]</div>
+                        <div class="book-description">
+                            <details style="text-align: justify">
+                                <summary>My recommnedation:</summary>
+                                This is not the history of chess. Nor is it the 
+                                history of artificial intelligence. This is the 
+                                story of human achievement and the behavior between 
+                                human and machines. While reading this book, 
+                                I took notes because I immediately had ideas for new 
+                                research topics, projects and even some fun essays. 
+                                To be honest: I've forgot almost all of them (which 
+                                underscores the importance of taking notes). This 
+                                book was a wellspring of great ideas and inspiration. 
+                                On  one hand, it's the story of one of the greatest 
+                                chess players of all time. Hearing it from his 
+                                perspective felt like sitting beside him on a cozy 
+                                couch, sipping coffee, as he recounted the golden age 
+                                of human vs. machine chess, his emotions during the 
+                                final battle against Deep Blue, when the board was 
+                                in flames (May 1997), and his reactions on absurd, 
+                                even terrifying, visions of a future where artificial 
+                                intelligence renders human life meaningless. On the 
+                                other hand, it's also the story of artificial intelligence 
+                                and how humanity choose chess as the ultimate intellectual 
+                                test, until they didn't. You don't have to understand 
+                                any technical details of artificial intelligence to 
+                                enjoy this book. Just be curios about the topic. What 
+                                I loved most was the dynamic between human and machine. 
+                                Why? Because on one side, we have people who see the 
+                                potential of machines to take "over the more menial 
+                                aspects of cognition and elevating our mental lives 
+                                toward creativity, curiosity, beauty, and joy." On the 
+                                other side, and there's always another side, we have 
+                                those who want use artificial intelligence purely to 
+                                make money, to automate everything, and to make machines 
+                                do all the work for them. I think we can agree which 
+                                vision is better. Let's return to the book: An adventure 
+                                through the history of artificial intelligence, beginning 
+                                with Turing and the Enigma code, thrilling stories of 
+                                visits to Oxford, the evolution of chess during Kasparov's 
+                                reign as world champion, and some meaningful insights 
+                                into how we should learn and how wem must except to 
+                                learn. Because if we learn like machines, we're downgrading 
+                                our potential. We are far more capable than machine 
+                                and that's something we must never forget, even as we 
+                                use the latest Large Language Model to write our late-night 
+                                essay. Remember: It should always be human and machine, 
+                                not human vs. machine.                            
+                            </details>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <aside class="sidebar" id="sidebar">
-        <nav class="nav">
-            <div class="nav-logo">
-                <a href="#" class="nav-logo-text">PG</a>
-            </div>
-
-            <div class="nav-menu">
-                <div class="menu">
-                    <ul class="nav-list">
-                        <li class="nav-item">
-                            <a href="#home" class="nav-link active-link">Home</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#about" class="nav-link">About</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#research" class="nav-link">Research</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#qualification" class="nav-link">Qualification</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#work" class="nav-link">Work</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#contact" class="nav-link">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="nav-close" id="nav-close">
-                <i class="uil uil-times"></i>
-            </div>
-        </nav>
-    </aside>
-
-    <main class="main">
-        <section class="home" id="home">
-            <div class="home-container container grid">
-                <div class="home-social">
-                    <span class="home-social-follow">Follow Me</span>
-                    <div class="home-social-links">
-                        <a href="https://www.linkedin.com/in/patryk-gadziomski-75215a239/" target="_blank" class="home-social-link">
-                            <i class="uil uil-linkedin"></i>
-                        </a>
-                        <a href="https://orcid.org/0009-0002-8381-7712" target="_blank" class="home-social-link">
-                            <img src="imgs/ORCID_iD.svg.png" alt="ORCID iD" width="18" height="18" style="margin-top: 4px;" />
-                        </a>
-                    </div>
-                </div>
-
-            <div class="home-data">
-                <h1 class="home-title">Hi, I'm Patryk</h1>
-                <h3 class="home-subtitle">Information Scientist</h3>
-                <p class="home-description">I have high level experience in web content analysis, LLM usage and Library Computer Science.</p>
-                <a href="#about" class="button">
-                    <i class="uil uil-user button-icon"></i>
-                    More About me!
-                </a>
-            </div>
-
-            <div class="my-info">
-                <div class="info-item">
-                    <i class="uil uil-envelope-edit info-icon"></i>
-
-                    <div>
-                        <h3 class="info-title">Email</h3>
-                        <span class="info-subtitle">gadziomski@etik.com</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+    <script>
+        function switchTab(evt, tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
             
-        </section>
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            const selectedTab = document.getElementById(tabName);
+            if (selectedTab) {
+                selectedTab.classList.add('active');
+            }
+            
+            // Add active class to clicked button
+            evt.currentTarget.classList.add('active');
+        }
 
-        <section class="about section" id="about">
-            <h2 class="section-title" data-heading="My Intro">About me</h2>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = canvas.offsetWidth;
+        canvas.height = window.innerHeight;
 
-            <div class="about-container container grid">
-                <img src="imgs/Gadziomski,Patryk2025_A.jpg" alt="" class="about-img">
+        const particles = [];
+        const particleCount = 50;
+        const mouse = { x: null, y: null };
+        const connectionDistance = 120;
+        const mouseRadius = 150;
 
-                <div class="about-data">
-                    <h3 class="about-heading">Hi, I'm Patryk Gadziomski, based in Germany</h3>
-                    <p class="about-description">I'm a information Scientist, within my Master studies and highly motivated for research, working on Artificial Intelligence, Web Content Analysis and Library Science.</p>
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
 
-                    <a href="#contact" class="button"><i class="uil uil-navigator button-icon"></i>Contact me</a>
-                </div>
-            </div>
-        </section>
+            update() {
+                // Mouse interaction
+                if (mouse.x && mouse.y) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < mouseRadius) {
+                        const force = (mouseRadius - distance) / mouseRadius;
+                        this.vx += dx * force * 0.01;
+                        this.vy += dy * force * 0.01;
+                    }
+                }
 
-        <section class="research section" id="research">
-            <h2 class="section-title" data-heading="Research">My Fields of Research</h2>
+                // Update position
+                this.x += this.vx;
+                this.y += this.vy;
 
-            <div class="research-container container grid">
-                <div class="research-content">
-                    <div>
-                        <i class="uil uil-web-grid research-icon"></i>
-                        <h3 class="research-title">Artificial <br> Intelligence</h3>
-                    </div>
-                </div>
+                // Bounce off edges
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
 
-                <div class="research-content">
-                    <div>
-                        <i class="uil uil-arrow research-icon"></i>
-                        <h3 class="research-title">Web Content <br> Analysis</h3>
-                    </div>
-                </div>
+                // Damping
+                this.vx *= 0.99;
+                this.vy *= 0.99;
 
-                <div class="research-content">
-                    <div>
-                        <i class="uil uil-edit research-icon"></i>
-                        <h3 class="research-title">Library <br> Science</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
+                // Keep some minimum movement
+                if (Math.abs(this.vx) < 0.1) this.vx += (Math.random() - 0.5) * 0.1;
+                if (Math.abs(this.vy) < 0.1) this.vy += (Math.random() - 0.5) * 0.1;
+            }
 
-        <section class="qualification section" id="qualification">
-            <h2 class="section-title" data-heading="My Journey">Qualifications</h2>
+            draw() {
+                ctx.fillStyle = 'rgba(0, 102, 204, 0.6)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
 
-            <div class="qualification-container container grid">
-                <div class="education">
-                    <h3 class="qualification-title"><i class="uil uil-graduation-cap"></i>Education</h3>
+        // Initialize particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
 
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-title">Library Computer Science (M.Sc.)</h3>
-                            <p class="timeline-text">Technical University of Applied Sciences, Wildau</p>
-                            <span class="timeline-date"><i class="uil uil-calendar-alt"></i>2025 - Now</span>
-                        </div>
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
 
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-title">Information Sciences (B.A.)</h3>
-                            <p class="timeline-text">Media University, Stuttgart</p>
-                            <p class="timeline-text"><b>Bachelorthesis</b>: Extraction of Location References and 
-                                                        Topics from Semi-Structured Textual Data from the Open 
-                                                        Web Index using Open-Source Large Language Models.</p>
-                            <p class="timeline-text">This bachelor's thesis was completed in collaboration with the 
-                                                     German Aerospace Center (DLR) as part of the Open Search Project.</p>
-                            <span class="timeline-date"><i class="uil uil-calendar-alt"></i>2022 - 2025</span>
-                        </div>
-                    </div>
-                </div>
+                    if (distance < connectionDistance) {
+                        const opacity = (1 - distance / connectionDistance) * 0.25;
+                        ctx.strokeStyle = `rgba(0, 102, 204, ${opacity})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
 
-                <div class="experience">
-                    <h3 class="qualification-title"><i class="uil uil-suitcase"></i>Experience</h3>
+        function animate() {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-                    <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-title">Fraunhofer IZM</h3>
-                            <p class="timeline-text">Intranet-Administrator</p>
-                            <span class="timeline-date"><i class="uil uil-calendar-alt"></i>2025 - Now</span>
-                        </div>
+            drawConnections();
 
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-title">German Aerospace Center (DLR)</h3>
-                            <p class="timeline-text">Bachelor’s Thesis Student</p>
-                            <span class="timeline-date"><i class="uil uil-calendar-alt"></i>2025 - 2025</span>
-                        </div>
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
 
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-title">University of Stuttgart</h3>
-                            <p class="timeline-text">Research Assistant | Library</p>
-                            <span class="timeline-date"><i class="uil uil-calendar-alt"></i>2022 - 2025</span>
-                        </div>
+            requestAnimationFrame(animate);
+        }
 
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-title">German Aerospace Center (DLR)</h3>
-                            <p class="timeline-text">Research Assistant | Internship</p>
-                            <span class="timeline-date"><i class="uil uil-calendar-alt"></i>2024 - 2024</span>
-                        </div>
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
 
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-title">Stuttgart Media University</h3>
-                            <p class="timeline-text">Tutor</p>
-                            <span class="timeline-date"><i class="uil uil-calendar-alt"></i>2023 - 2024</span>
-                        </div>
-                    </div>
-                </div>
+        canvas.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
 
-                <div class="freelance">
-                    <h3 class="qualification-title"><i class="uil uil-suitcase"></i>Freelance</h3>
+        window.addEventListener('resize', () => {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = window.innerHeight;
+        });
 
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-title">Regional Council Karlsruhe, Department for Public Library Services, Karlsruhe</h3>
-                            <p class="timeline-text">Subtitle Curation and Editing</p>
-                            <span class="timeline-date"><i class="uil uil-calendar-alt"></i>2024 - 2024</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="work section" id="work">
-            <h2 class="section-title" data-heading="My Portfolio">Projects/Publications</h2>
-
-            <div class="work-filters">
-                <span class="work-item active-work" data-filter="all">All</span>
-                <span class="work-item" data-filter=".university-project">University Projects</span>
-                <span class="work-item" data-filter=".private-project">Private Projects</span>
-                <span class="work-item" data-filter=".publication">Publications</span>
-            </div>
-
-            <div class="work-container container grid">
-                <div class="work-card mix private-project">
-                    <img src="imgs/CovidDashboard.png" alt="" class="work-img">
-                    <h3 class="work-title">COVID-19 Dashboard</h3>
-                    <span class="work-button">Check it Out<i class="uil uil-arrow-right work-button-icon"></i></span>
-
-                    <div class="portfolio-item-details">
-                        <h3 class="details-title">COVID-19 Dashboard</h3>
-                        <p class="details-description">This project analyzes COVID death and infection data from 24/02/2020 to 06/09/2022 and presents it in a dashboard.</p>
-                        <ul class="details-info">
-                            <li>Created - <span>29 Aug 2022</span></li>
-                            <li>Technologies - <span>sql, tableau</span></li>
-                            <li>Field - <span>data analysis</span></li>
-                            <li>View - <span><a href="https://github.com/PatrykGadziomski/COVID-19-Data-Exploration-and-Visualization", target="_blank">github/COVID-19-Data-Exploration-and-Visualization</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="work-card mix private-project">
-                    <img src="imgs/bikeRentalDashboard.png" alt="" class="work-img">
-                    <h3 class="work-title">Bike Sales Dashboard</h3>
-                    <span class="work-button">Check it Out<i class="uil uil-arrow-right work-button-icon"></i></span>
-
-                    <div class="portfolio-item-details">
-                        <h3 class="details-title">Bike Sales Dashboard</h3>
-                        <p class="details-description">In this project, I analyze bicycle sales. The analysis focuses on cleaning data and generating a final visualization in Excel.</p>
-                        <ul class="details-info">
-                            <li>Created - <span>11 Sep 2022</span></li>
-                            <li>Technologies - <span>excel</span></li>
-                            <li>Field - <span>data analysis</span></li>
-                            <li>View - <span><a href="https://github.com/PatrykGadziomski/Data-Cleaning-and-Visualization-in-Excel" target="_blank">github/Data-Cleaning-and-Visualization-in-Excel</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="work-card mix private-project">
-                    <img src="imgs/AirBnB-Seattle-2016-Dashboard.png" alt="" class="work-img">
-                    <h3 class="work-title">AirBnB Seattle 2016 Dashbaord</h3>
-                    <span class="work-button">Check it Out<i class="uil uil-arrow-right work-button-icon"></i></span>
-
-                    <div class="portfolio-item-details">
-                        <h3 class="details-title">AirBnB Seattle 2016 Dashbaord</h3>
-                        <p class="details-description">In this project, we analyze data from Airbnb listings in Seattle from 2016. The emphasis is on utilizing Tableau for data visualization.</p>
-                        <ul class="details-info">
-                            <li>Created - <span>18 Sep 2022</span></li>
-                            <li>Technologies - <span>tableau</span></li>
-                            <li>Field - <span>data analysis</span></li>
-                            <li>View - <span><a href="https://github.com/PatrykGadziomski/AirBnB-Seattle-2016-Data-Visualization-in-Tableau?tab=readme-ov-file" target="_blank">github/AirBnB-Seattle-2016-Data-Visualization-in-Tableau</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="work-card mix app">
-                    <img src="imgs/amai_gmbh_cover.jpeg" alt="" class="work-img">
-                    <h3 class="work-title">Inquiry Assistant</h3>
-                    <span class="work-button">Check it Out<i class="uil uil-arrow-right work-button-icon"></i></span>
-
-                    <div class="portfolio-item-details">
-                        <h3 class="details-title">Inquiry Assistant</h3>
-                        <p class="details-description">The project was the prototypical development of a dashboard for the evaluation of customer inquiries using NLP and other Technologies.</p>
-                        <ul class="details-info">
-                            <li>Created - <span>1 Aug 2022</span></li>
-                            <li>Technologies - <span>pandas, docker, excel, nlp, python, jupyter, plotly-dash, vs-code</span></li>
-                            <li>Field - <span>data analysis, data engineering</span></li>
-                            <li>View - <span><a>No Preview available</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="work-card mix university-project">
-                    <img src="" alt="" class="work-img">
-                    <h3 class="work-title">Anidex</h3>
-                    <span class="work-button">Check it Out<i class="uil uil-arrow-right work-button-icon"></i></span>
-
-                    <div class="portfolio-item-details">
-                        <h3 class="details-title">Anidex</h3>
-                        <p class="details-description">This project features a web application powered by a database. The application enables users to search, create, modify, and delete entries stored in the database.</p>
-                        <ul class="details-info">
-                            <li>Created - <span>28 Mar 2025</span></li>
-                            <li>Technologies - <span>html, css, javascript, mysql, python</span></li>
-                            <li>Field - <span>frontend backend</span></li>
-                            <li>View - <span><a>No Preview available</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="work-card mix university-project">
-                    <img src="imgs/culinary_ai.png" alt="" class="work-img">
-                    <h3 class="work-title">Culinary AI</h3>
-                    <span class="work-button">Check it Out<i class="uil uil-arrow-right work-button-icon"></i></span>
-
-                    <div class="portfolio-item-details">
-                        <h3 class="details-title">Culinary AI</h3>
-                        <p class="details-description">The following project involves data collection with web-scraping and fine-tuning of a AI model for recipe generation.</p>
-                        <ul class="details-info">
-                            <li>Created - <span>29 Oct 2023</span></li>
-                            <li>Technologies - <span>python, mongodb, web-scraping, huggingface, llm</span></li>
-                            <li>Field - <span>machine learning</span></li>
-                            <li>View - <span><a href="https://github.com/NicoleSauer/CulinaryAI-backend" target="_blank">github/CulinaryAI-backend</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="work-card mix university-project">
-                    <img src="imgs/grD6SDBT1f414EjMMcdn0Vi6iE.png" alt="" class="work-img">
-                    <h3 class="work-title">The AI Games</h3>
-                    <span class="work-button">Check it Out<i class="uil uil-arrow-right work-button-icon"></i></span>
-
-                    <div class="portfolio-item-details">
-                        <h3 class="details-title">The AI Games</h3>
-                        <p class="details-description">This project encompasses planning and executing the "AI Games" at the Stuttgart Media University, covering both the organizational and technical aspects.</p>
-                        <ul class="details-info">
-                            <li>Created - <span>15 Oct 2023</span></li>
-                            <li>Technologies - <span>project management, llm</span></li>
-                            <li>Field - <span>event management, it management</span></li>
-                            <li>View - <span><a href="https://the-ai-games.com/" target="_blank">the-ai-games.com</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="work-card mix university-project">
-                    <img src="" alt="" class="work-img">
-                    <h3 class="work-title">Bike Rental Analysis and Prediction</h3>
-                    <span class="work-button">Check it Out<i class="uil uil-arrow-right work-button-icon"></i></span>
-
-                    <div class="portfolio-item-details">
-                        <h3 class="details-title">Bike Rental Analysis and Prediction</h3>
-                        <p class="details-description">This project encompasses all steps of Data Science, ranging from data exploration and analysis to predicting bike rentals via a linear regression model.</p>
-                        <ul class="details-info">
-                            <li>Created - <span>15 Oct 2023</span></li>
-                            <li>Technologies - <span>python, machine learning, linear regression</span></li>
-                            <li>Field - <span>data analysis</span></li>
-                            <li>View - <span><a href="https://github.com/PatrykGadziomski/Bike-Rental-Prediction" target="_blank">github/Bike-Rental-Prediction</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="work-card mix university-project">
-                    <img src="" alt="" class="work-img">
-                    <h3 class="work-title">Visitor Forecast</h3>
-                    <span class="work-button">Check it Out<i class="uil uil-arrow-right work-button-icon"></i></span>
-
-                    <div class="portfolio-item-details">
-                        <h3 class="details-title">Visitor Forecast</h3>
-                        <p class="details-description">This project consists of digitizing analog statistics, creating a dataset, and training an AI model for visitor forecasting for the library for business administration.</p>
-                        <ul class="details-info">
-                            <li>Created - <span>3 Dec 2023</span></li>
-                            <li>Technologies - <span>python, pytorch, machine learning, deep learning, data digitalization</span></li>
-                            <li>Field - <span>machine learning</span></li>
-                            <li>View - <span><a href="https://github.com/PatrykGadziomski/Visitor-prediction" target="_blank">github/Visitor-prediction</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="work-card mix university-project">
-                    <img src="imgs/banner.png" alt="" class="work-img">
-                    <h3 class="work-title">StudyOS</h3>
-                    <span class="work-button">Check it Out<i class="uil uil-arrow-right work-button-icon"></i></span>
-
-                    <div class="portfolio-item-details">
-                        <h3 class="details-title">StudyOS</h3>
-                        <p class="details-description">StudyOS was developed as part of a project at the Stuttgart Media University and is an AI-supported gamification learning platform. This is merely a demo with only partially functional content.</p>
-                        <ul class="details-info">
-                            <li>Created - <span>19 Jan 2025</span></li>
-                            <li>Technologies - <span>python, typescript, javascript, node.js, next.js, llm</span></li>
-                            <li>Field - <span>ai in education</span></li>
-                            <li>View - <span><a href="https://github.com/PatrykGadziomski/StudyOS" target="_blank">github/StudyOS</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="work-card mix private-project">
-                    <img src="imgs/portfolio_web.png" alt="" class="work-img">
-                    <h3 class="work-title">Portfolio Website</h3>
-                    <span class="work-button">Check it Out<i class="uil uil-arrow-right work-button-icon"></i></span>
-
-                    <div class="portfolio-item-details">
-                        <h3 class="details-title">Portfolio Website</h3>
-                        <p class="details-description">The page you are currently on. It gives an overview of my person and my previous projects.</p>
-                        <ul class="details-info">
-                            <li>Created - <span>16 Feb 2025</span></li>
-                            <li>Technologies - <span>html, css, javascript</span></li>
-                            <li>Field - <span>web development</span></li>
-                            <li>View - <span><a href="https://github.com/PatrykGadziomski/patrykgadziomski.github.io" target="_blank">github/patrykgadziomski.github.io</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="work-card mix university-project">
-                    <img src="" alt="" class="work-img">
-                    <h3 class="work-title">Data Mining @ HdM</h3>
-                    <span class="work-button">Check it Out<i class="uil uil-arrow-right work-button-icon"></i></span>
-
-                    <div class="portfolio-item-details">
-                        <h3 class="details-title">Data Mining @ HdM</h3>
-                        <p class="details-description">An overview of the models and tasks covered in the Data Mining course at HdM.</p>
-                        <ul class="details-info">
-                            <li>Created - <span>20 Oct 2024</span></li>
-                            <li>Technologies - <span>python, maachine learning, data mining</span></li>
-                            <li>Field - <span>data mining</span></li>
-                            <li>View - <span><a href="https://github.com/PatrykGadziomski/Data-Mining-and-Pattern-Recognition-HdM" target="_blank">github/Data-Mining-and-Pattern-Recognition-HdM</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="work-card mix university-project">
-                    <img src="imgs/ORBIT_banner.png" alt="" class="work-img">
-                    <h3 class="work-title">ORBIT - Search Engine</h3>
-                    <span class="work-button">Check it Out<i class="uil uil-arrow-right work-button-icon"></i></span>
-
-                    <div class="portfolio-item-details">
-                        <h3 class="details-title">ORBIT - Search Engine</h3>
-                        <p class="details-description">ORBIT (Optimized Retrieval for Beyond Interstellar Technologies) was developed as part of a project at the Stuttgart Media University.</p>
-                        <ul class="details-info">
-                            <li>Created - <span>6 Apr 2025</span></li>
-                            <li>Technologies - <span>python, flask, api, information retrieval, search engine, solr</span></li>
-                            <li>Field - <span>information retrieval</span></li>
-                            <li>View - <span><a href="https://github.com/PatrykGadziomski/Orbit-Search-Engine" target="_blank">github/Orbit-Search-Engine</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="work-card mix publication">
-                    <img src="imgs/bitonline_thumb.png" alt="" class="work-img">
-                    <h3 class="work-title">Snapshots from the future -  Ein Blick auf Bibliotheken im Jahr 2035</h3>
-                    <span class="work-button">Check it Out<i class="uil uil-arrow-right work-button-icon"></i></span>
-
-                    <div class="portfolio-item-details">
-                        <h3 class="details-title">Snapshots from the future -  Ein Blick auf Bibliotheken im Jahr 2035</h3>
-                        <p class="details-description">What will libraries look like in 2035? The interdisciplinary
-                                                        project “Futures of the Library” shows future scenarios for
-                                                        public and academic libraries developed by students at
-                                                        Stuttgart Media University supervised by Prof. Dr. Tobias Seidl
-                                                        and Prof. Cornelia Vonhof.</p>
-                        <ul class="details-info">
-                            <li>Created - <span>13 Aug 2025</span></li>
-                            <li>Publisher - <span> b.i.t.online</span></li>
-                            <li>Field - <span>future research, future literacy</span></li>
-                            <li>View - <span><a href="https://www.b-i-t-online.de/heft/2025-04-nachrichtenbeitrag-gadziomski.pdf" target="_blank">2025-04-nachrichtenbeitrag-gadziomski.pdf</a></span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="portfolio-popup">
-            <div class="portfolio-popup-inner">
-                <div class="portfolio-popup-content grid">
-                    <span class="portfolio-popup-close"><i class="uil uil-times"></i></span>
-                    <div class="pp-thumbnail">
-                        <img src="https://i.postimg.cc/sXLjnC5p/work-2.png" alt="" class="portfolio-popup-img">
-                    </div>
-                    <div class="portfolio-popup-info">
-                        <div class="portfolio-popup-subtitle"><span></span></div>
-                        <div class="portfolio-popup-body">
-                            <p class="details-description"></p>
-
-                            <ul class="details-info">
-                                <li>Created - <span>15 Apr 2025</span></li>
-                                <li>Technologies - <span>html css</span></li>
-                                <li>Field - <span>frontend</span></li>
-                                <li>View - <span><a href="#">Check it out</a></span></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <section class="contact section" id="contact">
-            <h2 class="section-title" data-heading="Get in Touch">Contact me</h2>
-
-            <div class="contact-container container grid">
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-card">
-                            <i class="uil uil-linkedin contact-card-icon"></i>
-                            <h3 class="contact-card-title">LinkedIn</h3>
-                            <span class="contact-card-data">Patryk Gadziomski</span>
-                            <a href="https://www.linkedin.com/in/patryk-gadziomski-75215a239/", target="_blank"><span class="contact-button">Write me<i class="uil uil-arrow-right contact-button-icon"></i></span></a>
-                        </div>
-                        <div class="contact-card">
-                            <i class="uil uil-envelope-edit contact-card-icon"></i>
-                            <h3 class="contact-card-title">Email</h3>
-                            <span class="contact-card-data">gadziomski@etik.com</span>
-                            <a href="mailto:gadziomski@etik.com"><span class="contact-button">Write me<i class="uil uil-arrow-right contact-button-icon"></i></span></a>
-                        </div>
-                        <div class="contact-card">
-                            <i class="uil uil-github contact-card-icon"></i>
-                            <h3 class="contact-card-title">GitHUb</h3>
-                            <span class="contact-card-data">Patryk Gadziomski </span>
-                            <a href="https://github.com/PatrykGadziomski", target="_blank"><span class="contact-button">Write me<i class="uil uil-arrow-right contact-button-icon"></i></span></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </section>
-
-        <footer class="footer">
-            <div class="footer-bg">
-                <div class="footer-container container grid">
-                    <div>
-                        <h1 class="footer-title">Patryk <br> Gadziomski</h1>
-                        <span class="footer-subtitle">Information Scientist</span>
-                    </div>
-
-                    <ul class="footer-links">
-                        <li>
-                            <a href="#about" class="footer-links">About</a>
-                        </li>
-                        <li>
-                            <a href="#research" class="footer-links">Research</a>
-                        </li>
-                        <li>
-                            <a href="#qualification" class="footer-links">Qualification</a>
-                        </li>
-                        <li>
-                            <a href="#work" class="footer-links">Work</a>
-                        </li>
-                        <li>
-                            <a href="#contact" class="footer-links">Contact</a>
-                        </li>
-                    </ul>
-
-                    <div class="footer-socials">
-                        <a href="https://www.linkedin.com/in/patryk-gadziomski-75215a239/" target="_blank" class="footer-social">
-                            <i class="uil uil-linkedin"></i>
-                        </a>
-                        <a href="https://orcid.org/0009-0002-8381-7712" target="_blank" class="footer-social">
-                            <img src="imgs/ORCID_iD.svg.png" alt="ORCID iD" width="20" height="20" />
-                        </a>
-                    </div>
-                </div>
-
-                <p class="footer-copy">&#169; PATRYK GADZIOMSKI</a>. All rights reserved</p>
-            </div>
-        </footer>
-    </main>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mixitup/3.3.1/mixitup.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="script.js"></script>
+        animate();
+    </script>
 </body>
 </html>
